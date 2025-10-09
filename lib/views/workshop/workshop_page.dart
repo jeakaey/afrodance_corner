@@ -17,7 +17,7 @@ class WorkshopsPage extends StatelessWidget {
       ),
         body: Stack(
         children: [
-          // 🖼️ Image de fond
+          //  Image de fond
           Image.asset(
             'assets/images/image2.png',
             fit: BoxFit.cover,
@@ -26,18 +26,14 @@ class WorkshopsPage extends StatelessWidget {
             opacity: const AlwaysStoppedAnimation(0.5),
           ),
 
-          // 🖤 Couche de fondu sombre pour lisibilité
-          // Container(
-          //   color: Colors.black.withOpacity(0.3),
-          // ),
 
-          // 🌈 Contenu principal
+          
           SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 40),
 
-            // 🏷️ Titre principal
+            // Titre principal
             Text(
               'Les prochains Workshops',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -49,7 +45,7 @@ class WorkshopsPage extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // 💠 Section des cards
+            //  Section des cards
             LayoutBuilder(
               builder: (context, constraints) {
                 bool isLarge = constraints.maxWidth > 800;
@@ -99,7 +95,12 @@ class WorkshopsPage extends StatelessWidget {
               },
             ),
            
-          //  const Footer(),
+           const Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Footer(),
+          ),
           ],
         ),
       ),

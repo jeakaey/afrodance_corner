@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "6874426227",
+    "project_id": "afrodance-corner",
+    "storage_bucket": "afrodance-corner.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6874426227:android:9d37d8e85b32b9ccbfb306",
+        "android_client_info": {
+          "package_name": "com.example.afrodance_corner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUB976yhSZvAdGfahRsJ3EbtUrID6lALI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

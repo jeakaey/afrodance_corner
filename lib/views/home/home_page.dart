@@ -28,9 +28,9 @@ class HomePage extends StatelessWidget {
                     Image.asset(
                       'assets/images/hero-img.png',
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.8,
                       fit: BoxFit.cover,
-                      opacity: const AlwaysStoppedAnimation(0.5),
+                      opacity: const AlwaysStoppedAnimation(0.9),
                     ),
 
                     // Foreground content

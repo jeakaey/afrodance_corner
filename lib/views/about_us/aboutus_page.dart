@@ -14,7 +14,7 @@ class AboutPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // 🌄 Image de fond
+          //  Image de fond
           Image.asset(
             'assets/images/hero-img2.png',
             fit: BoxFit.cover,
@@ -23,16 +23,16 @@ class AboutPage extends StatelessWidget {
             opacity: const AlwaysStoppedAnimation(0.5),
           ),
 
-          // 🖤 Overlay sombre pour la lisibilité
+          //  Overlay sombre pour la lisibilité
        
 
-          // 🌈 Contenu principal
+          //  Contenu principal
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 75, horizontal: 20),
               child: Column(
                 children: [
-                  // 🏷️ Titre principal
+                  //  Titre principal
                   Text(
                     'À propos ',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -45,7 +45,7 @@ class AboutPage extends StatelessWidget {
 
                   const SizedBox(height: 40),
 
-                  // 📖 Texte de présentation
+                  // Texte de présentation
                   Container(
                     constraints: const BoxConstraints(maxWidth: 900),
                     padding: const EdgeInsets.all(24),
@@ -107,7 +107,12 @@ class AboutPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 60),
-                  const Footer(),
+                 const Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Footer(),
+          ),
                 ],
               ),
             ),
