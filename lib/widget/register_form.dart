@@ -23,12 +23,18 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _confirmPasswordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
+  String? _errormessage ;
+
   SnackBar accountCreatedSnackbar = const SnackBar(content: Text('Votre compte a ete créé avec succès!'));
   SnackBar passwordMismatchSnackbar = const SnackBar(content: Text('Les mots de passe ne correspondent pas'));
   SnackBar accountNotCreatedSnackbar = const SnackBar(content: Text('Erreur lors de la création du compte'));
   Future<void> _register() async {
+    setState(() {
+      _errormessage = null;
+    });
   // Create user with email and password in Firebase Auth
     try {
+    
      final _infos =  await _auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
@@ -46,15 +52,35 @@ class _RegisterFormState extends State<RegisterForm> {
         
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        accountCreatedSnackbar,
-      );
-      // redirect to home
+      setState(() {
+      _errormessage= null;
+    });
+      // redirect to workshop
       Navigator.pushReplacementNamed(context, '/workshop');
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur lors de la création du compte: ${e.message}')),
-      );
+      print("FirebaseAuthException: ${e.code} - ${e.message} ");
+      String message;
+
+    switch (e.code) {
+      case 'email-already-in-use':
+        message = 'Cet utilisateur existe déjà. Veuillez vous connecter.';
+       //  Navigator.pushReplacementNamed(context, '/login');
+        break;
+      case 'invalid-email':
+        message = 'Adresse e-mail invalide.';
+         //Navigator.pushReplacementNamed(context, '/login');
+        break;
+      case 'weak-password':
+        message = 'Le mot de passe est trop faible.';
+        break;
+      default:
+        message = 'Une erreur est survenue : ${e.message}';
+    }
+       setState(() {
+      _errormessage = message;
+    });
+    }catch (e) {
+      print('Erreur lors de la création du compte: $e');
     }
   }
 
@@ -184,6 +210,13 @@ class _RegisterFormState extends State<RegisterForm> {
                             validator: (value) =>
                                 value!.isEmpty ? 'Entrez votre email' : null,
                           ),
+                          if(_errormessage != null)
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Text(_errormessage!, 
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red),),
+                          ),
+                          
                           const SizedBox(height: 20),
 
                           // Password
@@ -220,7 +253,6 @@ class _RegisterFormState extends State<RegisterForm> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                   _register();
-                                  context.go('/workshop');
                                 }
                               },
                              

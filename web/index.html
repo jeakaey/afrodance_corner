@@ -33,6 +33,28 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <!-- Firebase SDKs -->
+<script type="module">
+  // Import the Firebase modules you need from the CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyB7wImZUjrV7XQZPPBrk3gYuStOzt7cZg8",
+    authDomain: "afrodance-corner.firebaseapp.com",
+    projectId: "afrodance-corner",
+    storageBucket: "afrodance-corner.appspot.com",
+    messagingSenderId: "6874426227",
+    appId: "1:6874426227:web:363fcc07e72d8b30bfb306",
+    measurementId: "G-WQ2GZ347X6"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  getAnalytics(app);
+</script>
+
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
