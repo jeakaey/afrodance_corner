@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
 
@@ -21,6 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();  
   final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _countryController =TextEditingController();
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   String? _errormessage ;
@@ -56,7 +58,7 @@ class _RegisterFormState extends State<RegisterForm> {
       _errormessage= null;
     });
       // redirect to workshop
-      Navigator.pushReplacementNamed(context, '/workshop');
+      context.go('/workshop');
     } on FirebaseAuthException catch (e) {
       print("FirebaseAuthException: ${e.code} - ${e.message} ");
       String message;
@@ -149,6 +151,17 @@ class _RegisterFormState extends State<RegisterForm> {
                             ),
                             validator: (value) =>
                                 value!.isEmpty ? 'Entrez votre prénom' : null,
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            controller: _countryController,
+                            decoration: const InputDecoration(
+                              labelText: 'Pays d\'origin',
+                              border: OutlineInputBorder(),
+                              prefixIcon: Icon(Icons.flag),
+                            ),
+                            validator: (value) =>
+                                value!.isEmpty ? 'Entrez votre pays d\'origin' : null,
                           ),
                           const SizedBox(height: 20),
                           //dob
