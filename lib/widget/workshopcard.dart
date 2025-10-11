@@ -1,28 +1,20 @@
 import 'package:flutter/material.dart';
-
+import 'package:afrodance_corner/views/workshop/workshop.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 class WorkshopCard extends StatelessWidget {
   final double width;
-  final String date;
-  final String time;
-  final String place;
-  final String theme;
-  final String coach;
-  final String dj;
-  final String cost;
   final VoidCallback onPressed;
+  final Workshop myWorkshop;
 
   const WorkshopCard({
     super.key,
     required this.width,
-    required this.date,
-    required this.time,
-    required this.place,
-    required this.theme,
-    required this.coach,
-    required this.dj,
-    required this.cost,
     required this.onPressed,
+    required this.myWorkshop,
   });
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +40,7 @@ class WorkshopCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  theme,
+                  myWorkshop.theme,
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -63,7 +55,7 @@ class WorkshopCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    cost,
+                    myWorkshop.cost.toStringAsFixed(2),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -77,18 +69,20 @@ class WorkshopCard extends StatelessWidget {
             const Divider(),
             const SizedBox(height: 10),
 
-            // 📅 Infos du workshop
-            _infoLine(Icons.calendar_today, date),
-            _infoLine(Icons.access_time, time),
-            _infoLine(Icons.place, place),
-            _infoLine(Icons.person, "Coach : $coach"),
-            _infoLine(Icons.music_note, "DJ : $dj"),
+            // Infos du workshop
+            _infoLine(Icons.calendar_today, myWorkshop.date),
+            _infoLine(Icons.access_time, myWorkshop.time),
+            _infoLine(Icons.place, myWorkshop.place),
+            _infoLine(Icons.person, "Coach : $myWorkshop.coach"),
+            _infoLine(Icons.music_note, "DJ : $myWorkshop.dj"),
             const SizedBox(height: 20),
 
-            // 🔘 Bouton S'inscrire
+            //  Bouton S'inscrire
             Center(
               child: ElevatedButton(
-                onPressed: onPressed,
+                onPressed: (){
+                _payWithPayPal(context, myWorkshop);
+                }, 
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepOrange,
                   padding: const EdgeInsets.symmetric(
@@ -135,4 +129,71 @@ class WorkshopCard extends StatelessWidget {
       ),
     );
   }
+
+   void _payWithPayPal(BuildContext context, Workshop workshop) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (BuildContext context) => PaypalCheckoutView(
+        sandboxMode: true,
+        // default account tk@gcom
+        clientId: "AdcFopLyaMD-SM7f9GCUzYGu7Tvat2Vkc_LikR0JQfHhN1wSVzR-eVSn8jX0eo7xSLDS0oweV6A1pLwf",
+        secretKey: "EHH7oW31NzaIlKpSLSuRMgLiyJPhSXY4zXPynvzrRygrhKEzXC2URjuSSvsbi6wL3-V7f2F8Z4H0RbNK",
+        transactions: [
+          {
+            "amount": {
+              "total": myWorkshop.cost.toStringAsFixed(2),
+              "currency": "EUR",
+              "details": {
+                "subtotal": myWorkshop.cost.toStringAsFixed(2),
+                "shipping": '0',
+                "shipping_discount": 0
+              }
+            },
+            "description": "Paiement pour le workshop '${myWorkshop.theme}'",
+            "item_list": {
+              "items": [
+                {
+                  "name": myWorkshop.theme,
+                  "quantity": 1,
+                  "price": myWorkshop.cost.toStringAsFixed(2),
+                  "currency": "EUR"
+                }
+              ],
+            }
+          }
+        ],
+        note: "Paiement AfroDance Corner",
+        onSuccess: (Map params) async {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text("Paiement réussi ! 🎉 Vous êtes inscrit.")),
+          );
+
+          await FirebaseFirestore.instance.collection('payments').add({
+            'userId': FirebaseAuth.instance.currentUser?.uid,
+            'workshop': myWorkshop.theme,
+            'amount': myWorkshop.cost,
+            'currency': 'EUR',
+            'status': 'success',
+            'transactionId': params['id'],
+            'createdAt': FieldValue.serverTimestamp(),
+          });
+
+          Navigator.pop(context);
+        },
+        onError: (error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Erreur: $error")),
+          );
+          Navigator.pop(context);
+        },
+        onCancel: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Paiement annulé")),
+          );
+          Navigator.pop(context);
+        },
+      ),
+    ));
+  }
 }
+

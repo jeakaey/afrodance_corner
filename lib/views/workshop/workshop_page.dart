@@ -1,3 +1,4 @@
+import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:afrodance_corner/widget/footer.dart';
 import 'package:afrodance_corner/widget/header.dart';
 import 'package:afrodance_corner/widget/workshopcard.dart';
@@ -59,35 +60,39 @@ class WorkshopsPage extends StatelessWidget {
                   children: [
                     WorkshopCard(
                       width: cardWidth,
-                      date: "Samedi 13 Décembre 2025",
+                      myWorkshop: Workshop(
+                     date: "Samedi 13 Décembre 2025",
                       time: "14h - 18h",
                       place: "TU Kaiserslautern - Allemagne",
                       theme: "Noel en Afro",
                       coach: "Amanda Queen",
                       dj: "Sylvio",
-                      cost: "15€",
+                      cost: 1),
                       onPressed: () => context.go('/login'),
                     ),
                     WorkshopCard(
                       width: cardWidth,
+                      myWorkshop: Workshop(
                       date: "Samedi 21 Février 2025",
                       time: "14h - 18h",
                       place: "TU Kaiserslautern - Allemagne",
                       theme: "African Lovebeat",
                       coach: "Amanda Queen",
                       dj: " Sylvio",
-                      cost: "15€",
+                      cost: 15
+                      ),
                       onPressed: () => context.go('/login'),
                     ),
                     WorkshopCard(
                       width: cardWidth,
+                      myWorkshop: Workshop(
                       date: "Bientôt disponible",
                       time: "Bientôt disponible",
                       place: "Bientôt disponible",
                       theme: "Bientôt disponible",
                       coach: "Bientôt disponible",
                       dj: "Bientôt disponible",
-                      cost: "0€",
+                      cost: 0),
                       onPressed: () => context.go('/login'),
                     ),
                   ],
