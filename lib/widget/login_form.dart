@@ -29,7 +29,7 @@ class _LoginFormState extends State<LoginForm> {
         const SnackBar(content: Text('Connexion réussie ✅')),
       );
       // redirect to home
-      Navigator.pushReplacementNamed(context, '/workshop');
+     context.go( '/workshop');
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message ?? 'Erreur de connexion')),
@@ -116,7 +116,6 @@ class _LoginFormState extends State<LoginForm> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                   _login();
-                                  context.go('/workshop');
                                 }
                               },
                              

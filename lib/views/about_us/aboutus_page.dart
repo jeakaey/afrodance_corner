@@ -13,6 +13,7 @@ class AboutPage extends StatelessWidget {
         child: const Header(),
       ),
       body: Stack(
+        alignment: Alignment.topCenter,
         children: [
           //  Image de fond
           Image.asset(
@@ -20,7 +21,7 @@ class AboutPage extends StatelessWidget {
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            opacity: const AlwaysStoppedAnimation(0.5),
+            opacity: const AlwaysStoppedAnimation(0.7),
           ),
 
           //  Overlay sombre pour la lisibilité
@@ -107,17 +108,18 @@ class AboutPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 60),
-                 const Positioned(
+                ],
+              ),
+            ),
+          ),
+           const Positioned(
             left: 0,
             right: 0,
             bottom: 0,
             child: Footer(),
           ),
-                ],
-              ),
-            ),
-          ),
         ],
+       
       ),
     );
   }

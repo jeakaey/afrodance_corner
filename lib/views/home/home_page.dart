@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.8,
                       fit: BoxFit.cover,
-                      opacity: const AlwaysStoppedAnimation(0.9),
+                      opacity: const AlwaysStoppedAnimation(0.7),
                     ),
 
                     // Foreground content
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
-                          SizedBox(height: 20 * scale),
+                          SizedBox(height: 20 * scale),  
                           Text(
                             'Viens rejoindre notre communauté passionnée de danse\n'
                             'africaine et découvre les rythmes envoûtants, les mouvements vibrants,\n'
@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
                                 .textTheme
                                 .bodyLarge
                                 ?.copyWith(
-                                  color: Colors.black87,
+                                  color: Colors.white,
                                   fontSize: 18 * scale,
                                   fontWeight: FontWeight.w400,
                                 ),

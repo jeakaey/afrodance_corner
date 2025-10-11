@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 10),
 
                   ///  This part switches
                   AnimatedSwitcher(
@@ -50,8 +50,6 @@ class _LoginPageState extends State<LoginPage> {
                         ? const LoginForm(key: ValueKey('login'))
                         : const RegisterForm(key: ValueKey('register')),
                   ),
-
-                  const SizedBox(height: 20),
 
                   ///  This stays visible for both forms
                   TextButton(

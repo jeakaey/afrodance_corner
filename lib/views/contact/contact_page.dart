@@ -196,16 +196,17 @@ class _ContactPageState extends State<ContactPage> {
                     ),
 
                     const SizedBox(height: 60),
-                    const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Footer(),
-          ),
+                   
                   ],
                 ),
               ),
             ),
+          ),
+           const Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Footer(),
           ),
         ],
       ),

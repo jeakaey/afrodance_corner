@@ -17,6 +17,7 @@ class WorkshopsPage extends StatelessWidget {
         child: const Header(),
       ),
         body: Stack(
+         alignment: Alignment.topCenter,
         children: [
           //  Image de fond
           Image.asset(
@@ -26,17 +27,15 @@ class WorkshopsPage extends StatelessWidget {
             height: double.infinity,
             opacity: const AlwaysStoppedAnimation(0.5),
           ),
-
-
-          
           SingleChildScrollView(
+
         child: Column(
           children: [
-            const SizedBox(height: 40),
-
+            const SizedBox(height: 20),
             // Titre principal
             Text(
               'Les prochains Workshops',
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: Colors.deepOrange,
                     fontSize: 40,
@@ -62,53 +61,27 @@ class WorkshopsPage extends StatelessWidget {
                       width: cardWidth,
                       myWorkshop: Workshop(
                      date: "Samedi 13 Décembre 2025",
-                      time: "14h - 18h",
+                      time: "13h - 18h",
                       place: "TU Kaiserslautern - Allemagne",
                       theme: "Noel en Afro",
-                      coach: "Amanda Queen",
-                      dj: "Sylvio",
-                      cost: 1),
-                      onPressed: () => context.go('/login'),
-                    ),
-                    WorkshopCard(
-                      width: cardWidth,
-                      myWorkshop: Workshop(
-                      date: "Samedi 21 Février 2025",
-                      time: "14h - 18h",
-                      place: "TU Kaiserslautern - Allemagne",
-                      theme: "African Lovebeat",
-                      coach: "Amanda Queen",
-                      dj: " Sylvio",
-                      cost: 15
+                      dateLine: "Delai d'inscription: 30.11.2025"
                       ),
-                      onPressed: () => context.go('/login'),
-                    ),
-                    WorkshopCard(
-                      width: cardWidth,
-                      myWorkshop: Workshop(
-                      date: "Bientôt disponible",
-                      time: "Bientôt disponible",
-                      place: "Bientôt disponible",
-                      theme: "Bientôt disponible",
-                      coach: "Bientôt disponible",
-                      dj: "Bientôt disponible",
-                      cost: 0),
-                      onPressed: () => context.go('/login'),
-                    ),
+                     ),
                   ],
                 );
               },
             ),
-           
-           const Positioned(
+         SizedBox(height: 100,)
+         
+          ],
+        ),
+      ),
+       const Positioned(
             left: 0,
             right: 0,
             bottom: 0,
             child: Footer(),
-          ),
-          ],
-        ),
-      ),
+          ),   
    ] ));
   }
 }
