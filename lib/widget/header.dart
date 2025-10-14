@@ -9,19 +9,24 @@ class Header extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
       color: Colors.white,
-      child: Row(
+      child: LayoutBuilder(builder:
+       (context, constraints){
+            final isLarge = constraints.maxWidth > 500;
+            final scale = isLarge ? 1.5 : 1.0;
+      
+        return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset('assets/images/logo.png', height: 100),
+          Image.asset('assets/images/logo.png', height: 50 * scale),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-          const Text(
+           Text(
             textAlign: TextAlign.center,
             'Afrodance Corner',
             style: TextStyle(
               color: Colors.deepOrange,
-              fontSize: 32,
+              fontSize: 20 * scale,
               fontWeight: FontWeight.bold,
               fontFamily: "Arial",
             ),
@@ -29,7 +34,7 @@ class Header extends StatelessWidget {
           Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  if (constraints.maxWidth > 400) {
+                  if (constraints.maxWidth > 500) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -118,8 +123,8 @@ class Header extends StatelessWidget {
                   itemBuilder: (context) => [
                     PopupMenuItem(child: ListTile(title: const Text('Login'), leading: const Icon(Icons.login, color: Colors.black), onTap: () => context.go('/login'))),
                     PopupMenuItem(child: ListTile(title: const Text('Accueil'), leading: const Icon(Icons.home, color: Colors.black), onTap: () => context.go('/'))),
-                    PopupMenuItem(child: ListTile(title: const Text('À Propos'), leading: const Icon(Icons.info, color: Colors.black), onTap: () => context.go('/about_us'))),
                     PopupMenuItem(child: ListTile(title: const Text('Workshop'), leading: const Icon(Icons.class_sharp, color: Colors.black), onTap: () => context.go('/workshop'))),
+                    PopupMenuItem(child: ListTile(title: const Text('À Propos'), leading: const Icon(Icons.info, color: Colors.black), onTap: () => context.go('/about_us'))),
                     PopupMenuItem(child: ListTile(title: const Text('Contact'), leading: const Icon(Icons.contact_mail, color: Colors.black), onTap: () => context.go('/contact'))),
                   ],
                 );
@@ -128,7 +133,9 @@ class Header extends StatelessWidget {
           ),
          ),
         ],
-      ),
-    );
+      );
+      }
+      
+    ));
   }
 }

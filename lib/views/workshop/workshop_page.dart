@@ -25,32 +25,48 @@ class WorkshopsPage extends StatelessWidget {
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            opacity: const AlwaysStoppedAnimation(0.5),
+            opacity: const AlwaysStoppedAnimation(0.9),
           ),
           SingleChildScrollView(
-
-        child: Column(
+        child:LayoutBuilder(builder:
+       (context, constraints){
+            final isLarge = constraints.maxWidth > 400;
+            final scale = isLarge ? 1.3 : 1.0;
+        return 
+         Column(
           children: [
             const SizedBox(height: 20),
             // Titre principal
             Text(
-              'Les prochains Workshops',
+              'Les prochains workshops',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: Colors.deepOrange,
-                    fontSize: 40,
+                    fontSize: 30 * scale,
                     fontWeight: FontWeight.bold,
                   ),
             ),
 
-            const SizedBox(height: 30),
-
+            const SizedBox(height: 20),
+            TextButton(  
+              onPressed: () => context.go('/about_us'),
+            child: Text(  'En quoi consiste nos ateliers de danses?',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline
+                    
+                  ),
+            )),
+            const SizedBox(height: 20),
             //  Section des cards
             LayoutBuilder(
               builder: (context, constraints) {
-                bool isLarge = constraints.maxWidth > 800;
+                bool isLarge = constraints.maxWidth > 1000;
                 double cardWidth =
-                    isLarge ? constraints.maxWidth / 3.2 : constraints.maxWidth * 0.9;
+                    isLarge ? constraints.maxWidth / 2.5 : constraints.maxWidth * 0.9;
 
                 return Wrap(
                   alignment: WrapAlignment.center,
@@ -67,6 +83,8 @@ class WorkshopsPage extends StatelessWidget {
                       dateLine: "Delai d'inscription: 30.11.2025"
                       ),
                      ),
+                     SizedBox(height: 20),
+
                   ],
                 );
               },
@@ -74,8 +92,8 @@ class WorkshopsPage extends StatelessWidget {
          SizedBox(height: 100,)
          
           ],
-        ),
-      ),
+        );
+  })),
        const Positioned(
             left: 0,
             right: 0,

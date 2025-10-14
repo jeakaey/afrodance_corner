@@ -2,96 +2,84 @@ import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-Widget suscribeButton (Workshop myWorkshop, BuildContext context, double cost){
+Widget suscribeButton(
+  Workshop myWorkshop,
+  String cost,
+  bool isChecked,
+  BuildContext context,
+) {
   return ElevatedButton(
-                onPressed: (){
-                _payWithPayPal(context, myWorkshop, cost);
-                }, 
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepOrange,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 30,
-                    vertical: 16,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: const Text(
-                  "S'inscrire",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              );
-    
-}
- void _payWithPayPal(BuildContext context, Workshop myWorkshop, double cost) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (BuildContext context) => PaypalCheckoutView(
-        sandboxMode: true,
-        // default account tk@gcom
-        clientId: "AdcFopLyaMD-SM7f9GCUzYGu7Tvat2Vkc_LikR0JQfHhN1wSVzR-eVSn8jX0eo7xSLDS0oweV6A1pLwf",
-        secretKey: "EHH7oW31NzaIlKpSLSuRMgLiyJPhSXY4zXPynvzrRygrhKEzXC2URjuSSvsbi6wL3-V7f2F8Z4H0RbNK",
-        transactions: [
-          {
-            "amount": {
-              "total": cost.toStringAsFixed(2),
-              "currency": "EUR",
-              "details": {
-                "subtotal": cost.toStringAsFixed(2),
-                "shipping": '0',
-                "shipping_discount": 0
-              }
-            },
-            "description": "Paiement pour le workshop '${myWorkshop.theme}'",
-            "item_list": {
-              "items": [
-                {
-                  "name": myWorkshop.theme,
-                  "quantity": 1,
-                  "price": cost.toStringAsFixed(2),
-                  "currency": "EUR"
-                }
-              ],
-            }
-          }
-        ],
-        note: "Paiement AfroDance Corner",
-        onSuccess: (Map params) async {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text("Paiement réussi ! Vous êtes inscrit.")),
-          );
-
-          await FirebaseFirestore.instance.collection('payments').add({
-            'userId': FirebaseAuth.instance.currentUser?.uid,
-            'workshop': myWorkshop.theme,
-            'amount': cost,
-            'currency': 'EUR',
-            'status': 'success',
-            'transactionId': params['id'],
-            'createdAt': FieldValue.serverTimestamp(),
-          });
-
-          Navigator.pop(context);
-        },
-        onError: (error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Erreur: $error")),
-          );
-          Navigator.pop(context);
-        },
-        onCancel: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Paiement annulé")),
-          );
-          Navigator.pop(context);
-        },
+    onPressed: () async {
+      if (isChecked) {
+        // Si la case est cochée → paiement via PayPal
+        await _launchPaypal(cost, myWorkshop);
+      } else {
+        // Si non cochée → afficher une alerte
+        _showConsentDialog(context);
+      }
+    },
+    style: ElevatedButton.styleFrom(
+      backgroundColor: isChecked ? Colors.deepOrange : Colors.grey, // 🔸 grisé si non coché
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+    ),
+    child: const Text(
+      "S'inscrire",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 12,
+        fontWeight: FontWeight.bold,
       ),
-    ));
+    ),
+  );
+}
+
+///  Fonction d’ouverture de PayPal
+Future<void> _launchPaypal(String cost, Workshop myWorkshop) async {
+  final Uri url = Uri.parse("https://paypal.me/Afrodancecorner/$cost");
+
+  // Enregistrer l’intention de paiement dans Firestore
+  await FirebaseFirestore.instance.collection('payments_triggered').add({
+    'userEmail': FirebaseAuth.instance.currentUser?.email,
+    'amount': cost,
+    'workshop': myWorkshop.theme,
+    'paidAt': FieldValue.serverTimestamp(),
+    'status': 'redirected_to_paypal',
+  });
+
+  // Ouvrir PayPal
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url, mode: LaunchMode.externalApplication);
+  } else {
+    throw 'Impossible d’ouvrir PayPal';
   }
+}
+
+///  Fonction pour afficher une alerte
+void _showConsentDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: const Text(
+          "Consentement requis",
+          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+        ),
+        content: const Text(
+          "Veuillez accepter les conditions de participation avant de continuer. "
+          "Cochez la case confirmant votre accord sur l'utilisation des photos et vidéos.",
+          style: TextStyle(fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("OK", style: TextStyle(color: Colors.black)),
+          ),
+        ],
+      );
+    },
+  );
+}

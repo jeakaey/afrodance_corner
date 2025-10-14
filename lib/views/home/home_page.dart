@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.8,
                       fit: BoxFit.cover,
-                      opacity: const AlwaysStoppedAnimation(0.7),
+                      opacity: const AlwaysStoppedAnimation(0.9),
                     ),
 
                     // Foreground content

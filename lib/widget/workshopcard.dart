@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:afrodance_corner/widget/suscribe_button.dart';
-class WorkshopCard extends StatelessWidget {
+
+class WorkshopCard extends StatefulWidget {
   final double width;
- // final VoidCallback onPressed;
   final Workshop myWorkshop;
 
   const WorkshopCard({
     super.key,
     required this.width,
-   // required this.onPressed,
     required this.myWorkshop,
   });
- 
+
+  @override
+  State<WorkshopCard> createState() => WorkshopCardState();
+}
+
+class WorkshopCardState extends State<WorkshopCard> {
+  bool _acceptedMediaConsent = false;
 
   @override
   Widget build(BuildContext context) {
-   
     return Card(
       elevation: 6,
-      shadowColor: Colors.deepOrangeAccent.withOpacity(0.3),
+      shadowColor: Colors.deepOrangeAccent.withOpacity(0.9),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       child: Container(
-        width: width,
+        width: widget.width,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -38,7 +42,7 @@ class WorkshopCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  myWorkshop.theme,
+                  widget.myWorkshop.theme,
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -52,60 +56,53 @@ class WorkshopCard extends StatelessWidget {
             const SizedBox(height: 10),
 
             // Infos du workshop
-            _infoLine(Icons.calendar_today, myWorkshop.date),
-            _infoLine(Icons.access_time, myWorkshop.time),
-            _infoLine(Icons.place, myWorkshop.place),
-            _infoLine(Icons.calendar_today_outlined, myWorkshop.dateLine),
+            _infoLine(Icons.calendar_today, widget.myWorkshop.date),
+            _infoLine(Icons.access_time, widget.myWorkshop.time),
+            _infoLine(Icons.place, widget.myWorkshop.place),
+            _infoLine(Icons.calendar_today_outlined, widget.myWorkshop.dateLine),
+
             const SizedBox(height: 20),
             const Divider(),
+            const SizedBox(height: 20),
+
+            // Checkbox consentement
+            CheckboxListTile(
+              value: _acceptedMediaConsent,
+              onChanged: (value) {
+                setState(() {
+                  _acceptedMediaConsent = value ?? false;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,
+              activeColor: Colors.green,
+              title: const Text(
+                "En participant à ce workshop, j’autorise Afrodance Corner à utiliser "
+                "les photos et vidéos prises lors de l’événement à des fins de communication "
+                "et de promotion sur nos affiches publicitaires, réseaux sociaux et site web.",
+                style: TextStyle(fontSize: 13),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+            const Divider(),
+            const SizedBox(height: 20),
+
+            // Forfaits
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                     Text("Basic", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,
-                     color: Colors.deepOrange),),
-                     SizedBox(height: 5),
-                     Text("- Accès au workshop", style: TextStyle(fontSize: 12, color: Colors.black),),
-                     Text("- Eau + friandises ", style: TextStyle(fontSize: 12, color: Colors.black),),
-                     SizedBox(height: 5),
-                     Text("5 EUR", style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),), 
-                     suscribeButton(myWorkshop, context, 5.0)
-                  ],
-                ),
-                Column(
-                  children: [
-                     Text("Standard", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,
-                     color: Colors.deepOrange),),
-                     SizedBox(height: 5),
-                     Text("- Basic ", style: TextStyle(fontSize: 12, color: Colors.black),),
-                     Text("- Photos + videos ", style: TextStyle(fontSize: 12, color: Colors.black),),
-                     SizedBox(height: 5),
-                     Text("10 EUR", style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),),
-                     SizedBox(height: 5),
-                     suscribeButton(myWorkshop, context, 10.0)
-                  ],),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                  children: [
-                     Text("Premium", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,
-                     color: Colors.deepOrange),),
-                     SizedBox(height: 5),
-                     Text("- Standard", style: TextStyle(fontSize: 12, color: Colors.black),),
-                     Text("- Cadeau special", style: TextStyle(fontSize: 12, color: Colors.black),),
-                     SizedBox(height: 5),
-                     Text("15 EUR", style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),),
-                     SizedBox(height: 5),
-                     suscribeButton(myWorkshop, context, 15.0)
-                  ],
-                )
+                _planCard("Basic", ["Accès au workshop", "Eau + friandises"], "5 EUR", "5.0", _acceptedMediaConsent, context),
+                _planCard("Standard", ["Basic", "Photos + vidéos"], "10 EUR", "10.0", _acceptedMediaConsent, context),
+                _planCard("Premium", ["Standard", "Cadeau spécial"], "15 EUR", "15.0", _acceptedMediaConsent, context),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
   }
+
+  // --- internal Widgets  ---
 
   Widget _infoLine(IconData icon, String text) {
     return Padding(
@@ -117,10 +114,7 @@ class WorkshopCard extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black87,
-              ),
+              style: const TextStyle(fontSize: 16, color: Colors.black87),
             ),
           ),
         ],
@@ -128,6 +122,28 @@ class WorkshopCard extends StatelessWidget {
     );
   }
 
-  
+  Widget _planCard(String title, List<String> features, String price, String amount, bool isChecked, BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepOrange,
+          ),
+        ),
+        const SizedBox(height: 5),
+        for (var f in features)
+          Text("- $f", style: const TextStyle(fontSize: 12, color: Colors.black)),
+        const SizedBox(height: 5),
+        Text(
+          price,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 5),
+        suscribeButton(widget.myWorkshop, amount, isChecked, context),
+      ],
+    );
+  }
 }
-

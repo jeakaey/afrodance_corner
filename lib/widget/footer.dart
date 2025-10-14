@@ -9,29 +9,35 @@ class Footer extends StatelessWidget {
       color: Colors.white,
       padding: const EdgeInsets.all(5),
       width: double.infinity,
-      child: const Center(
-        child:Row(
+      child: LayoutBuilder(builder:
+       (context, constraints){
+            final isLarge = constraints.maxWidth > 500;
+            final scale = isLarge ? 1.5 : 1.0;
+      
+        return Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
           SizedBox(width: 15),
             Image(
               image: AssetImage('assets/images/tasties-logo.png'),
-              height: 80,
-              width: 100,
+              height: 30 * scale,
+              width: 60,
             ),
             SizedBox(width: 15),
             Image(
               image: AssetImage('assets/images/logo.png'),
-              height: 80,
-              width: 80,
+              height: 30 * scale,
+              width: 60,
             ),
              ] ),
             SizedBox(width: 15),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
               Text(
                 '© 2025 Afrodance Corner - Tous droits réservés',
@@ -39,7 +45,7 @@ class Footer extends StatelessWidget {
               ),
       ])
           ],
-        ),
+        );},
       ));
   }
 }
