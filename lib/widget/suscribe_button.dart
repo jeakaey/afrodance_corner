@@ -1,8 +1,12 @@
+
 import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:html' as html; // uniquement pour le web
 
 Widget suscribeButton(
   Workshop myWorkshop,
@@ -36,24 +40,44 @@ Widget suscribeButton(
   );
 }
 
-///  Fonction d’ouverture de PayPal
 Future<void> _launchPaypal(String cost, Workshop myWorkshop) async {
-  final Uri url = Uri.parse("https://paypal.me/Afrodancecorner/$cost");
+  final String paypalUrl = "https://paypal.me/Afrodancecorner/$cost";
+  final Uri url = Uri.parse(paypalUrl);
 
-  // Enregistrer l’intention de paiement dans Firestore
-  await FirebaseFirestore.instance.collection('payments_triggered').add({
-    'userEmail': FirebaseAuth.instance.currentUser?.email,
-    'amount': cost,
-    'workshop': myWorkshop.theme,
-    'paidAt': FieldValue.serverTimestamp(),
-    'status': 'redirected_to_paypal',
-  });
+  try {
+    //open paypal as soon as possible
+    if (kIsWeb) {
+      // on Flutter Web → open a different tab
+      html.window.open(paypalUrl, '_blank');
+    } else if (await canLaunchUrl(url)) {
+      // on Android / iOS → open navigator or paypal app
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+    } else {
+      throw 'Impossible d’ouvrir PayPal : $paypalUrl';
+    }
 
-  // Ouvrir PayPal
-  if (await canLaunchUrl(url)) {
-    await launchUrl(url, mode: LaunchMode.externalApplication);
-  } else {
-    throw 'Impossible d’ouvrir PayPal';
+    // register in firebase
+    await FirebaseFirestore.instance.collection('payments_triggered').add({
+      'userEmail': FirebaseAuth.instance.currentUser?.email,
+      'amount': cost,
+      'workshop': myWorkshop.theme,
+      'paidAt': FieldValue.serverTimestamp(),
+      'status': 'redirected_to_paypal',
+      'platform': kIsWeb
+          ? 'web'
+          : Platform.isAndroid
+              ? 'android'
+              : Platform.isIOS
+                  ? 'ios'
+                  : 'unknown',
+    });
+
+    debugPrint('Redirection PayPal réussie et enregistrement effectué.');
+  } catch (e) {
+    debugPrint('Erreur lors de l’ouverture de PayPal : $e');
   }
 }
 
