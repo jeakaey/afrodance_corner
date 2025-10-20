@@ -27,9 +27,9 @@ class _RegisterFormState extends State<RegisterForm> {
   final _firestore = FirebaseFirestore.instance;
   String? _errormessage ;
 
-  SnackBar accountCreatedSnackbar = const SnackBar(content: Text('Votre compte a ete créé avec succès!'));
-  SnackBar passwordMismatchSnackbar = const SnackBar(content: Text('Les mots de passe ne correspondent pas'));
-  SnackBar accountNotCreatedSnackbar = const SnackBar(content: Text('Erreur lors de la création du compte'));
+ // SnackBar accountCreatedSnackbar = const SnackBar(content: Text('Votre compte a ete créé avec succès!'));
+  //SnackBar passwordMismatchSnackbar = const SnackBar(content: Text('Les mots de passe ne correspondent pas'));
+ // SnackBar accountNotCreatedSnackbar = const SnackBar(content: Text('Erreur lors de la création du compte'));
   Future<void> _register() async {
     setState(() {
       _errormessage = null;
@@ -71,9 +71,6 @@ class _RegisterFormState extends State<RegisterForm> {
       case 'invalid-email':
         message = 'Adresse e-mail invalide.';
          //Navigator.pushReplacementNamed(context, '/login');
-        break;
-      case 'weak-password':
-        message = 'Le mot de passe est trop faible.';
         break;
       default:
         message = 'Une erreur est survenue : ${e.message}';

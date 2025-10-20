@@ -127,7 +127,7 @@ class _ContactPageState extends State<ContactPage> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text(
-                                          'Message envoyé avec succès 🎉'),
+                                          'Message envoyé avec succès'),
                                     ),
                                   );
                                 }

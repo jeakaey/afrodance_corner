@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:afrodance_corner/main.dart';
 class Header extends StatelessWidget {
   const Header({super.key});
 
@@ -132,6 +132,18 @@ class Header extends StatelessWidget {
             },
           ),
          ),
+         PopupMenuButton<Locale>(
+          icon: const Icon(Icons.language, color: Colors.deepOrange),
+          onSelected: (Locale locale) {
+          AfrodanceCornerApp.setLocale(context, locale);
+  },
+          itemBuilder: (context) => const [
+            PopupMenuItem(value: Locale('fr'), child: Text("Français")),
+            PopupMenuItem(value: Locale('en'), child: Text("English")),
+            PopupMenuItem(value: Locale('de'), child: Text("Deutsch")),
+          ],
+),
+
         ],
       );
       }
