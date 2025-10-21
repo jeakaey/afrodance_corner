@@ -80,7 +80,7 @@ class WorkshopsPage extends StatelessWidget {
                       time: "13h - 18h",
                       place: "TU Kaiserslautern - Allemagne",
                       theme: "Noel en Afro",
-                      dateLine: "Delai d'inscription: 30.11.2025"
+                      dateLine: "Delai d'inscription\nStandard et Premium : 01.12.2025",
                       ),
                      ),
                      SizedBox(height: 20),
