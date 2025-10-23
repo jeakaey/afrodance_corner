@@ -207,6 +207,18 @@ class Header extends StatelessWidget {
               PopupMenuButton<Locale>(
                 icon: const Icon(Icons.language, color: Colors.black),
                 itemBuilder: (context) => [
+                   PopupMenuItem(
+                    value: Locale('de'),
+                    child: ListTile(
+                      title: Text(l10n.headerLanguageGerman),
+                      onTap: () {
+                        Navigator.pop(context);
+                        AfrodanceCornerApp.setLocale(
+                          context,
+                          const Locale('de'),
+                        );},
+                    ),
+                  ),
                   PopupMenuItem(
                     value: Locale('fr'),
                     child: ListTile(
@@ -229,19 +241,6 @@ class Header extends StatelessWidget {
                         AfrodanceCornerApp.setLocale(
                           context,
                           const Locale('en'),
-                        );
-                      },
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: Locale('de'),
-                    child: ListTile(
-                      title: Text(l10n.headerLanguageGerman),
-                      onTap: () {
-                        Navigator.pop(context);
-                        AfrodanceCornerApp.setLocale(
-                          context,
-                          const Locale('de'),
                         );
                       },
                     ),

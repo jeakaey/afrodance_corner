@@ -27,7 +27,7 @@ class AfrodanceCornerApp extends StatefulWidget {
 }
 
 class _AfrodanceCornerApp extends State<AfrodanceCornerApp> {
-  Locale _locale = const Locale('de ');
+  Locale _locale = const Locale('de');
 
   void changeLanguage(Locale locale) {
     setState(() {
@@ -39,7 +39,7 @@ class _AfrodanceCornerApp extends State<AfrodanceCornerApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       locale: _locale, // langue par défaut
-      supportedLocales: const [Locale('fr'), Locale('en'), Locale('de')],
+      supportedLocales: const [Locale('de'), Locale('fr'), Locale('en')],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
