@@ -3,6 +3,7 @@ import 'package:afrodance_corner/widget/header.dart';
 import 'package:afrodance_corner/widget/footer.dart';
 import 'package:afrodance_corner/widget/login_form.dart';
 import 'package:afrodance_corner/widget/register_form.dart';
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
@@ -34,7 +36,9 @@ class _LoginPageState extends State<LoginPage> {
 
           /// Scrollable content
           SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: 120), // ⬅️ leave space for footer
+            padding: const EdgeInsets.only(
+              bottom: 120,
+            ), // ⬅️ leave space for footer
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -60,8 +64,8 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Text(
                       isLogin
-                          ? "Pas encore de compte ? Créer un compte"
-                          : "Déjà un compte ? Se connecter",
+                          ? l10n.loginPageCreateAccountTextButton
+                          : l10n.loginPageLoginTextButton,
                       style: const TextStyle(
                         color: Colors.deepOrange,
                         fontSize: 16,
@@ -77,12 +81,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
 
           ///  Fixed footer at bottom
-          const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Footer(),
-          ),
+          const Positioned(left: 0, right: 0, bottom: 0, child: Footer()),
         ],
       ),
     );

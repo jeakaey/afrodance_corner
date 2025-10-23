@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../widget/header.dart';
 import '../../widget/footer.dart';
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -18,6 +19,7 @@ class _ContactPageState extends State<ContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
@@ -34,9 +36,7 @@ class _ContactPageState extends State<ContactPage> {
           ),
 
           // 🔳 Overlay sombre pour la lisibilité
-          Container(
-            color: Colors.black.withOpacity(0.4),
-          ),
+          Container(color: Colors.black.withOpacity(0.4)),
 
           // 🌈 Contenu principal
           SingleChildScrollView(
@@ -47,17 +47,17 @@ class _ContactPageState extends State<ContactPage> {
                   children: [
                     // 🏷️ Titre
                     Text(
-                      'Contactez-nous',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      l10n.contactPageSubtitle,
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(
                             color: Colors.deepOrange,
                             fontSize: 38,
                             fontWeight: FontWeight.bold,
                           ),
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      'Une question, une suggestion ou une envie de collaborer ? '
-                      'Nous serions ravis d’échanger avec vous !',
+                    Text(
+                      l10n.contactPageText,
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -80,27 +80,29 @@ class _ContactPageState extends State<ContactPage> {
                         child: Column(
                           children: [
                             TextFormField(
-                              decoration: const InputDecoration(
-                                labelText: 'Nom',
+                              decoration: InputDecoration(
+                                labelText: l10n.labelTextName,
                                 prefixIcon: Icon(Icons.person),
                                 border: OutlineInputBorder(),
                               ),
                               validator: (value) =>
-                                  value == null || value.isEmpty ? 'Veuillez entrer votre nom' : null,
+                                  value == null || value.isEmpty
+                                  ? l10n.validatorCheckName
+                                  : null,
                               onSaved: (value) => name = value,
                             ),
                             const SizedBox(height: 20),
                             TextFormField(
-                              decoration: const InputDecoration(
-                                labelText: 'Email',
+                              decoration: InputDecoration(
+                                labelText: l10n.labelTextEmail,
                                 prefixIcon: Icon(Icons.email),
                                 border: OutlineInputBorder(),
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Veuillez entrer votre email';
+                                  return l10n.validatorCheckEmail;
                                 } else if (!value.contains('@')) {
-                                  return 'Email invalide';
+                                  return l10n.validatorCheckInvalidEmail;
                                 }
                                 return null;
                               },
@@ -109,13 +111,14 @@ class _ContactPageState extends State<ContactPage> {
                             const SizedBox(height: 20),
                             TextFormField(
                               maxLines: 5,
-                              decoration: const InputDecoration(
-                                labelText: 'Message',
+                              decoration: InputDecoration(
+                                labelText: l10n.labelTextMessage,
                                 prefixIcon: Icon(Icons.message),
                                 border: OutlineInputBorder(),
                               ),
-                              validator: (value) => value == null || value.isEmpty
-                                  ? 'Veuillez entrer un message'
+                              validator: (value) =>
+                                  value == null || value.isEmpty
+                                  ? l10n.validatorCheckMessage
                                   : null,
                               onSaved: (value) => message = value,
                             ),
@@ -125,9 +128,10 @@ class _ContactPageState extends State<ContactPage> {
                                 if (_formKey.currentState!.validate()) {
                                   _formKey.currentState!.save();
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                    SnackBar(
                                       content: Text(
-                                          'Message envoyé avec succès 🎉'),
+                                        l10n.contactPageSnackbarSucessMessage,
+                                      ),
                                     ),
                                   );
                                 }
@@ -135,17 +139,20 @@ class _ContactPageState extends State<ContactPage> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.deepOrange,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 20),
+                                  horizontal: 40,
+                                  vertical: 20,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              child: const Text(
-                                'Envoyer',
+                              child: Text(
+                                l10n.contactPageSendButton,
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
@@ -163,10 +170,10 @@ class _ContactPageState extends State<ContactPage> {
                         color: Colors.white.withOpacity(0.9),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
                           Text(
-                            'Nos coordonnées',
+                            l10n.contactPageInfoSubtitle,
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -175,42 +182,46 @@ class _ContactPageState extends State<ContactPage> {
                           ),
                           SizedBox(height: 20),
                           ListTile(
-                            leading: Icon(Icons.location_on, color: Colors.deepOrange),
-                            title: Text('Paul-Ehrlich-Str. 28, Kaiserslautern, Allemagne'),
+                            leading: Icon(
+                              Icons.location_on,
+                              color: Colors.deepOrange,
+                            ),
+                            title: Text(l10n.contactPageAdress),
                           ),
                           ListTile(
-                            leading: Icon(Icons.phone, color: Colors.deepOrange),
-                            title: Text('+49 15773617625'),
+                            leading: Icon(
+                              Icons.phone,
+                              color: Colors.deepOrange,
+                            ),
+                            title: Text(l10n.contactPageTelefon),
                           ),
                           ListTile(
-                            leading: Icon(Icons.email, color: Colors.deepOrange),
-                            title: Text('afrodancecorner@gmail.com'),
+                            leading: Icon(
+                              Icons.email,
+                              color: Colors.deepOrange,
+                            ),
+                            title: Text(l10n.contactPageEmail),
                           ),
                           ListTile(
-                            leading: Icon(Icons.tiktok, color: Colors.deepOrange),
-                            title: Text('Afrodance corner'),
+                            leading: Icon(
+                              Icons.tiktok,
+                              color: Colors.deepOrange,
+                            ),
+                            title: Text(l10n.contactPageTiktok),
                           ),
-                          
                         ],
                       ),
                     ),
 
                     const SizedBox(height: 60),
-                   
                   ],
                 ),
               ),
             ),
           ),
-           const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Footer(),
-          ),
+          const Positioned(left: 0, right: 0, bottom: 0, child: Footer()),
         ],
       ),
     );
   }
 }
-

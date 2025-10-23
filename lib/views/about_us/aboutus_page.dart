@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../widget/header.dart';
 import '../../widget/footer.dart';
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
@@ -26,7 +28,6 @@ class AboutPage extends StatelessWidget {
           ),
 
           //  Overlay sombre pour la lisibilité
-       
 
           //  Contenu principal
           SingleChildScrollView(
@@ -36,12 +37,12 @@ class AboutPage extends StatelessWidget {
                 children: [
                   //  Titre principal
                   Text(
-                    'À propos ',
+                    l10n.aboutusPageTitle,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Colors.black,
-                          fontSize: 50,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: Colors.black,
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.center,
                   ),
 
@@ -55,18 +56,8 @@ class AboutPage extends StatelessWidget {
                       color: Colors.white.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Text(
-                      "Afrodance Corner est bien plus qu’un simple espace de danse — "
-                      "c’est une communauté vibrante qui célèbre les danses afro-urbaines, "
-                      "leur énergie, leur diversité et leur histoire. "
-                      "Nous créons des espaces où chacun peut s’exprimer en dansant, "
-                      "apprendre, se dépasser et surtout, partager sa passion pour la culture afro. "
-                      "\n\nNos workshops réunissent des danseurs de tous niveaux, Que tu sois débutant ou confirmé,"
-                      "icitu trouveras ton rythme ! "
-                      "\n\nL'encadrement des differents ateliers sont coordonnés par des coachs passionnés et des animateurs DJs très talentueux. "
-                      "Nous tenons a remercier nos partenaires qui nous accompagnent et nous soutiennent. Et bien sûr, un grand merci à notre incroyable"
-                      " communauté de danseurs et danseuses qui rendent chaque session inoubliable.",
-                    
+                    child: Text(
+                      l10n.aboutusPageADCText,
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.black87,
@@ -75,75 +66,78 @@ class AboutPage extends StatelessWidget {
                       textAlign: TextAlign.justify,
                     ),
                   ),
-                   const SizedBox(height: 20),
-                    
-                      Container(
-                      constraints: const BoxConstraints(maxWidth: 900),
-                      padding: const EdgeInsets.all(24),
-                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.9),
-                        borderRadius: BorderRadius.circular(20),
+                  const SizedBox(height: 20),
+
+                  Container(
+                    constraints: const BoxConstraints(maxWidth: 900),
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                     child:Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                       children: [
-                           Text(
-                               "Nos Workshops",
-                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      children: [
+                        Text(
+                          l10n.aboutusPageSubtitle,
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(
                                 color: Colors.deepOrange,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 32,),
-                            textAlign: TextAlign.center, ),
-                           const SizedBox(height: 20),
-                           const Divider(
-                              thickness: 2,
-                              indent: 100,
-                              endIndent: 100,
-                              color: Colors.deepOrange,
+                                fontSize: 32,
+                              ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 20),
+                        const Divider(
+                          thickness: 2,
+                          indent: 100,
+                          endIndent: 100,
+                          color: Colors.deepOrange,
+                        ),
+                        const SizedBox(height: 30),
+                        Text(
+                          l10n.aboutusPageWorkshopText,
+                          style: Theme.of(context).textTheme.bodyLarge
+                              ?.copyWith(
+                                height: 1.6,
+                                fontSize: 18,
+                                color: Colors.black87,
+                              ),
+                          textAlign: TextAlign.justify,
+                        ),
+                        const SizedBox(height: 40),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            context.go('/workshop');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.deepOrange,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 32,
+                              vertical: 16,
                             ),
-                           const SizedBox(height: 30),
-                      Text(
-                        "C’est avant tout une après-midi rythmée durant laquelle "
-                        "les participants inscrits à nos ateliers apprennent de nouvelles "
-                        "chorégraphies sur des sons principalement afro. Accompagnés par leur coach, "
-                        "ils sont guidés pas à pas dans chaque mouvement avec passion et énergie.\n\n"
-                        "La séance se divise en trois temps forts : les échauffements, "
-                        "une mini-chorégraphie tendance (souvent inspirée des danses virales TikTok), "
-                        "et une chorégraphie principale preparée par leur coach. "
-                        "Nous invitons tous les participants à venir motivés, à l’heure, "
-                        "et prêts à se faire plaisir sur la piste de danse !\n\n"
-                        "Afrodance Corner, c’est aussi un lieu d’échanges, de rencontres et de partages "
-                        "entre passionnés de danse, dans une ambiance conviviale et vibrante.",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              height: 1.6,
-                              fontSize: 18,
-                              color: Colors.black87,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
                             ),
-                        textAlign: TextAlign.justify,
-                      ),
-              const SizedBox(height: 40),
-              ElevatedButton.icon(
-                onPressed: () {
-                 context.go('/workshop');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepOrange,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
+                          ),
+                          icon: const Icon(
+                            Icons.local_activity,
+                            color: Colors.white,
+                          ),
+                          label: Text(
+                            l10n.aboutusPageSuscribeButton,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                icon: const Icon(Icons.local_activity, color: Colors.white),
-                label: const Text(
-                  "S'inscrire à notre prochain workshop",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),])),
-          
+
                   const SizedBox(height: 50),
 
                   // 💪 Mission / Vision / Valeurs
@@ -151,35 +145,36 @@ class AboutPage extends StatelessWidget {
                     alignment: WrapAlignment.center,
                     spacing: 20,
                     runSpacing: 20,
-                    children: const [
+                    children: [
                       AboutCard(
                         icon: Icons.favorite,
-                        title: 'Notre mission',
-                        text:
-                            'Faire découvrir et promouvoir les danses afro-urbaines, '
-                            'dans un esprit de partage et divertissement.',
+                        title: l10n.aboutusPageMissionTitle,
+                        text: l10n.aboutusPageMissionText,
                       ),
                       AboutCard(
                         icon: Icons.visibility,
-                        title: 'Notre vision',
-                        text:
-                            'Créer un espace d’expression artistique et culturelle '
-                            'où chaque passionné de danse trouve sa place.',
+                        title: l10n.aboutusPageVisionTitle,
+                        text: l10n.aboutusPageVisionText,
                       ),
                       AboutCard(
                         icon: Icons.people,
-                        title: 'Nos valeurs',
-                        text:
-                            'Respect, inclusion, passion et authenticité — les piliers '
-                            'qui animent chaque session et chaque sourire.',
+                        title: l10n.aboutusPageValuesTitle,
+                        text: l10n.aboutusPageValuesText,
                       ),
                     ],
                   ),
 
                   const SizedBox(height: 60),
-        ]))),const Positioned(bottom: 0.0, left:0.0, right: 0.0,child: Footer())]));
-           
-}}
+                ],
+              ),
+            ),
+          ),
+          const Positioned(bottom: 0.0, left: 0.0, right: 0.0, child: Footer()),
+        ],
+      ),
+    );
+  }
+}
 
 // 🌟 Widget réutilisable pour les cartes de section
 class AboutCard extends StatelessWidget {

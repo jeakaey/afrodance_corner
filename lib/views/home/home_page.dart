@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../widget/header.dart';
 import '../../widget/footer.dart';
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
@@ -43,26 +45,20 @@ class HomePage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Bienvenue à Afrodance Corner!',
+                            l10n.welcomePageTitle,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium
+                            style: Theme.of(context).textTheme.headlineMedium
                                 ?.copyWith(
                                   color: Colors.deepOrange,
                                   fontSize: 40 * scale,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
-                          SizedBox(height: 20 * scale),  
+                          SizedBox(height: 20 * scale),
                           Text(
-                            'Viens rejoindre notre communauté passionnée de danse\n'
-                            'africaine et découvre les rythmes envoûtants, les mouvements vibrants,\n'
-                            'et l\'énergie contagieuse qui font de chaque session de nos ateliers une expérience inoubliable.',
+                            l10n.welcomePageJoinusText,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
+                            style: Theme.of(context).textTheme.bodyLarge
                                 ?.copyWith(
                                   color: Colors.white,
                                   fontSize: 18 * scale,
@@ -83,7 +79,7 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              'Inscris-toi à notre prochaine session',
+                              l10n.welcomePageSubscribeButton,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,

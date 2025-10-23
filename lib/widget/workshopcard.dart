@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:afrodance_corner/widget/suscribe_button.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class WorkshopCard extends StatefulWidget {
   final double width;
@@ -21,12 +23,11 @@ class WorkshopCardState extends State<WorkshopCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 6,
       shadowColor: Colors.deepOrangeAccent.withOpacity(0.9),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         width: widget.width,
         padding: const EdgeInsets.all(20),
@@ -59,7 +60,10 @@ class WorkshopCardState extends State<WorkshopCard> {
             _infoLine(Icons.calendar_today, widget.myWorkshop.date),
             _infoLine(Icons.access_time, widget.myWorkshop.time),
             _infoLine(Icons.place, widget.myWorkshop.place),
-            _infoLine(Icons.calendar_today_outlined, widget.myWorkshop.dateLine),
+            _infoLine(
+              Icons.calendar_today_outlined,
+              widget.myWorkshop.dateLine,
+            ),
 
             const SizedBox(height: 20),
             const Divider(),
@@ -75,14 +79,28 @@ class WorkshopCardState extends State<WorkshopCard> {
               },
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.green,
-              title: const Text(
-                "En participant à ce workshop, j’autorise Afrodance Corner à utiliser "
-                "les photos et vidéos prises lors de l’événement à des fins de communication "
-                "et de promotion sur nos affiches publicitaires, réseaux sociaux et site web.",
-                style: TextStyle(fontSize: 13),
+              title: Text(
+                l10n.workshopCardAgreementText,
+                style: const TextStyle(fontSize: 13),
               ),
             ),
+            const SizedBox(height: 5),
 
+            // Checkbox consentement
+            CheckboxListTile(
+              value: _acceptedMediaConsent,
+              onChanged: (value) {
+                setState(() {
+                  _acceptedMediaConsent = value ?? false;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,
+              activeColor: Colors.green,
+              title: Text(
+                l10n.workshopCardPaymentAgreementText,
+                style: const TextStyle(fontSize: 13),
+              ),
+            ),
             const SizedBox(height: 20),
             const Divider(),
             const SizedBox(height: 20),
@@ -91,9 +109,42 @@ class WorkshopCardState extends State<WorkshopCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _planCard("Basic", ["Accès au workshop", "Eau + friandises"], "5 EUR", "5.0", _acceptedMediaConsent, context),
-                _planCard("Standard", ["Basic", "Photos + vidéos"], "10 EUR", "10.0", _acceptedMediaConsent, context),
-                _planCard("Premium", ["Standard", "Cadeau spécial"], "15 EUR", "15.0", _acceptedMediaConsent, context),
+                // _planCard("Basic", ["Accès au workshop", "Eau + friandises"], "5 EUR", "5.0", _acceptedMediaConsent, context),
+                // _planCard("Standard", ["Basic", "Photos + vidéos"], "10 EUR", "10.0", _acceptedMediaConsent, context),
+                // _planCard("Premium", ["Standard", "Cadeau spécial"], "15 EUR", "15.0", _acceptedMediaConsent, context),
+                _planCard(
+                  "Basic",
+                  [
+                    l10n.workshopCardBasicCriteria1,
+                    l10n.workshopCardBasicCriteria2,
+                  ],
+                  "5 EUR",
+                  "5.0",
+                  _acceptedMediaConsent,
+                  context,
+                ),
+                _planCard(
+                  "Standard",
+                  [
+                    l10n.workshopCardStandardCriteria1,
+                    l10n.workshopCardStandardCriteria2,
+                  ],
+                  "10 EUR",
+                  "10.0",
+                  _acceptedMediaConsent,
+                  context,
+                ),
+                _planCard(
+                  "Premium",
+                  [
+                    l10n.workshopCardPremiumCriteria1,
+                    l10n.workshopCardPremiumCriteria2,
+                  ],
+                  "15 EUR",
+                  "15.0",
+                  _acceptedMediaConsent,
+                  context,
+                ),
               ],
             ),
           ],
@@ -122,7 +173,14 @@ class WorkshopCardState extends State<WorkshopCard> {
     );
   }
 
-  Widget _planCard(String title, List<String> features, String price, String amount, bool isChecked, BuildContext context) {
+  Widget _planCard(
+    String title,
+    List<String> features,
+    String price,
+    String amount,
+    bool isChecked,
+    BuildContext context,
+  ) {
     return Column(
       children: [
         Text(
@@ -135,7 +193,10 @@ class WorkshopCardState extends State<WorkshopCard> {
         ),
         const SizedBox(height: 5),
         for (var f in features)
-          Text("- $f", style: const TextStyle(fontSize: 12, color: Colors.black)),
+          Text(
+            "- $f",
+            style: const TextStyle(fontSize: 12, color: Colors.black),
+          ),
         const SizedBox(height: 5),
         Text(
           price,

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -20,24 +20,24 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();  
+  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-  final TextEditingController _countryController =TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
-  String? _errormessage ;
+  String? _errormessage;
 
-  SnackBar accountCreatedSnackbar = const SnackBar(content: Text('Votre compte a ete créé avec succès!'));
-  SnackBar passwordMismatchSnackbar = const SnackBar(content: Text('Les mots de passe ne correspondent pas'));
-  SnackBar accountNotCreatedSnackbar = const SnackBar(content: Text('Erreur lors de la création du compte'));
+  // SnackBar accountCreatedSnackbar = const SnackBar(content: Text('Votre compte a ete créé avec succès!'));
+  //SnackBar passwordMismatchSnackbar = const SnackBar(content: Text('Les mots de passe ne correspondent pas'));
+  // SnackBar accountNotCreatedSnackbar = const SnackBar(content: Text('Erreur lors de la création du compte'));
   Future<void> _register() async {
+    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _errormessage = null;
     });
-  // Create user with email and password in Firebase Auth
+    // Create user with email and password in Firebase Auth
     try {
-    
-     final _infos =  await _auth.createUserWithEmailAndPassword(
+      final _infos = await _auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
@@ -51,250 +51,253 @@ class _RegisterFormState extends State<RegisterForm> {
         'address': _addressController.text.trim(),
         'email': _emailController.text.trim(),
         'createdAt': FieldValue.serverTimestamp(),
-        
       });
 
       setState(() {
-      _errormessage= null;
-    });
+        _errormessage = null;
+      });
       // redirect to workshop
       context.go('/workshop');
     } on FirebaseAuthException catch (e) {
       print("FirebaseAuthException: ${e.code} - ${e.message} ");
       String message;
 
-    switch (e.code) {
-      case 'email-already-in-use':
-        message = 'Cet utilisateur existe déjà. Veuillez vous connecter.';
-       //  Navigator.pushReplacementNamed(context, '/login');
-        break;
-      case 'invalid-email':
-        message = 'Adresse e-mail invalide.';
-         //Navigator.pushReplacementNamed(context, '/login');
-        break;
-      case 'weak-password':
-        message = 'Le mot de passe est trop faible.';
-        break;
-      default:
-        message = 'Une erreur est survenue : ${e.message}';
-    }
-       setState(() {
-      _errormessage = message;
-    });
-    }catch (e) {
-      print('Erreur lors de la création du compte: $e');
+      switch (e.code) {
+        case 'email-already-in-use':
+          message = l10n.registerFormUserExistNotification;
+          //  Navigator.pushReplacementNamed(context, '/login');
+          break;
+        case 'invalid-email':
+          message = "Invalid email address.";
+          //Navigator.pushReplacementNamed(context, '/login');
+          break;
+        default:
+          message = "An unknown error occurred: ${e.message}";
+      }
+      setState(() {
+        _errormessage = message;
+      });
+    } catch (e) {
+      print('${l10n.registerFormErrorNotification}$e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return  LayoutBuilder(
-         builder: (context, constraints) {
-          final isLarge = constraints.maxWidth > 600;
-          final scale = isLarge ? 1.5 : 1.0;
+    final l10n = AppLocalizations.of(context)!;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isLarge = constraints.maxWidth > 600;
+        final scale = isLarge ? 1.5 : 1.0;
 
-              return SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24 * scale,
-                    vertical: 60 * scale,
+        return SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            horizontal: 24 * scale,
+            vertical: 60 * scale,
+          ),
+          child: Center(
+            child: Container(
+              alignment: Alignment.center,
+              width: isLarge ? 500 : double.infinity,
+              padding: EdgeInsets.all(24 * scale),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(20 * scale),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
                   ),
-                  child: Center(
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: isLarge ? 500 : double.infinity,
-                      padding: EdgeInsets.all(24 * scale),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(20 * scale),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10,
-                          offset: Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Créer un compte',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.deepOrange,
-                              fontSize: 20 * scale,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 30),
-                          // Surname  
-                          TextFormField(
-                            controller: _surnameController,
-                            decoration: const InputDecoration(
-                              labelText: 'Nom',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.person),
-                            ),
-                            validator: (value) =>
-                                value!.isEmpty ? 'Entrez votre nom' : null,
-                          ),
-                          const SizedBox(height: 20),
-                          // name
-                          TextFormField(
-                            controller: _nameController,
-                            decoration: const InputDecoration(
-                              labelText: 'Prénom',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.person),
-                            ),
-                            validator: (value) =>
-                                value!.isEmpty ? 'Entrez votre prénom' : null,
-                          ),
-                          const SizedBox(height: 20),
-                          TextFormField(
-                            controller: _countryController,
-                            decoration: const InputDecoration(
-                              labelText: 'Pays d\'origin',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.flag),
-                            ),
-                            validator: (value) =>
-                                value!.isEmpty ? 'Entrez votre pays d\'origin' : null,
-                          ),
-                          const SizedBox(height: 20),
-                          //dob
-                         TextFormField(
-                            controller: _dateOfBirthController,
-                            decoration: const InputDecoration(
-                              labelText: 'Date de naissance',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.calendar_today),
-                            ),
-                            // validator: (value) =>
-                            //     value!.isEmpty ? 'Entrez votre date de naissance' : null,
-                          ),
-                          const SizedBox(height: 20),
-                          // sex
-                          TextFormField(
-                            controller: _sexController,
-                            decoration: const InputDecoration(
-                              labelText: 'Sexe',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.wc),
-                            ),
-                            // validator: (value) =>
-                            //     value!.isEmpty ? 'Entrez votre sexe' : null,
-                          ),
-                          const SizedBox(height: 20),
-                          // phone
-                         TextFormField(
-                            controller: _phoneController,
-                            decoration: const InputDecoration(
-                              labelText: 'Téléphone',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.phone),
-                            ),
-                            // validator: (value) =>
-                            //     value!.isEmpty ? 'Entrez votre numéro de téléphone' : null,
-                          ),
-                          const SizedBox(height: 20),
-                          // address
-                          TextFormField(
-                            controller: _addressController,
-                            decoration: const InputDecoration(
-                              labelText: 'Adresse',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.home),
-                            ),
-                            // validator: (value) =>
-                            //     value!.isEmpty ? 'Entrez votre adresse' : null,
-                          ),
-                          const SizedBox(height: 20),
-                          // Email
-                          TextFormField(
-                            controller: _emailController,
-                            decoration: const InputDecoration(
-                              labelText: 'Email',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.email),
-                            ),
-                            validator: (value) =>
-                                value!.isEmpty ? 'Entrez votre email' : null,
-                          ),
-                          if(_errormessage != null)
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Text(_errormessage!, 
-                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red),),
-                          ),
-                          
-                          const SizedBox(height: 20),
-
-                          // Password
-                          TextFormField(
-                            controller: _passwordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              labelText: 'Mot de passe',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.lock),
-                            ),
-                            validator: (value) => value!.length < 6
-                                ? 'Au moins 6 caractères'
-                                : null,
-                          ),
-                          const SizedBox(height: 20),
-
-                          // Confirm password (only register)
-                          TextFormField(
-                            controller: _confirmPasswordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              labelText: 'Confirmer le mot de passe',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.lock),
-                            ),
-                            validator: (value) => value != _passwordController.text
-                                ? 'Les mots de passe ne correspondent pas'
-                                : null,
-                          ),
-                       const SizedBox(height: 30),
-                          // Submit Button
-                          ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                  _register();
-                                }
-                              },
-                             
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.deepOrange,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 25 * scale,
-                                vertical: 15 * scale,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                            child: Text(
-                              'S\'enregistrer',
-                              style: TextStyle(
-                                fontSize: 14 * scale,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            )),
-                          
-                        ],
+                ],
+              ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      l10n.registerFormCardTitle,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.deepOrange,
+                        fontSize: 20 * scale,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    
-                   ),
-                ));
-              },
-            );
+                    const SizedBox(height: 30),
+                    // Surname
+                    TextFormField(
+                      controller: _surnameController,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextName,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      validator: (value) =>
+                          value!.isEmpty ? l10n.validatorCheckName : null,
+                    ),
+                    const SizedBox(height: 20),
+                    // name
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextSurname,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      validator: (value) =>
+                          value!.isEmpty ? l10n.validatorCheckSurname : null,
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _countryController,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextCountry,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.flag),
+                      ),
+                      validator: (value) =>
+                          value!.isEmpty ? l10n.validatorCheckCountry : null,
+                    ),
+                    const SizedBox(height: 20),
+                    //dob
+                    TextFormField(
+                      controller: _dateOfBirthController,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextDob,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.calendar_today),
+                      ),
+                      // validator: (value) =>
+                      //     value!.isEmpty ? 'Entrez votre date de naissance' : null,
+                    ),
+                    const SizedBox(height: 20),
+                    // sex
+                    TextFormField(
+                      controller: _sexController,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextGender,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.wc),
+                      ),
+                      // validator: (value) =>
+                      //     value!.isEmpty ? 'Entrez votre sexe' : null,
+                    ),
+                    const SizedBox(height: 20),
+                    // phone
+                    TextFormField(
+                      controller: _phoneController,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextPhone,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.phone),
+                      ),
+                      // validator: (value) =>
+                      //     value!.isEmpty ? 'Entrez votre numéro de téléphone' : null,
+                    ),
+                    const SizedBox(height: 20),
+                    // address
+                    TextFormField(
+                      controller: _addressController,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextAdress,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.home),
+                      ),
+                      // validator: (value) =>
+                      //     value!.isEmpty ? 'Entrez votre adresse' : null,
+                    ),
+                    const SizedBox(height: 20),
+                    // Email
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextEmail,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                      validator: (value) =>
+                          value!.isEmpty ? l10n.validatorCheckEmail : null,
+                    ),
+                    if (_errormessage != null)
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Text(
+                          _errormessage!,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+
+                    const SizedBox(height: 20),
+
+                    // Password
+                    TextFormField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextPassword,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock),
+                      ),
+                      validator: (value) => value!.length < 6
+                          ? l10n.validatorCheckPassword
+                          : null,
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Confirm password (only register)
+                    TextFormField(
+                      controller: _confirmPasswordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: l10n.labelTextConfirmPassword,
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock),
+                      ),
+                      validator: (value) => value != _passwordController.text
+                          ? l10n.validatorCheckConfirmPassword
+                          : null,
+                    ),
+                    const SizedBox(height: 30),
+                    // Submit Button
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _register();
+                        }
+                      },
+
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepOrange,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 25 * scale,
+                          vertical: 15 * scale,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                        l10n.registerFormSubmitButton,
+                        style: TextStyle(
+                          fontSize: 14 * scale,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
