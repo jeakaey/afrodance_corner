@@ -75,6 +75,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get contactPageSnackbarSucessMessage => 'Message envoyé avec succès';
 
   @override
+  String get contactPageText => 'Une question, une suggestion ou une envie de collaborer ? Nous serions ravis d’échanger avec vous !';
+
+  @override
   String get labelTextPassword => 'Mot de passe';
 
   @override
@@ -87,19 +90,49 @@ class AppLocalizationsFr extends AppLocalizations {
   String get labelTextName => 'Nom';
 
   @override
-  String get validatorCheckEmail => 'Entrer votre Email';
+  String get labelTextSurname => 'Prenom';
+
+  @override
+  String get labelTextCountry => 'Pays d\'origin';
+
+  @override
+  String get labelTextGender => 'Genre';
+
+  @override
+  String get labelTextPhone => 'Telephone';
+
+  @override
+  String get labelTextAdress => 'Adresse';
+
+  @override
+  String get labelTextDob => 'Date de naissance';
+
+  @override
+  String get labelTextConfirmPassword => 'Confirmer le mot de passe';
+
+  @override
+  String get validatorCheckEmail => 'Entrez votre Email';
 
   @override
   String get validatorCheckInvalidEmail => 'Email invalide';
 
   @override
-  String get validatorCheckName => 'Entrer votre nom';
+  String get validatorCheckName => 'Entrez votre nom';
 
   @override
-  String get validatorCheckMessage => 'Entrer un message';
+  String get validatorCheckMessage => 'Entrez un message';
 
   @override
   String get validatorCheckPassword => 'Au moins 6 caractères';
+
+  @override
+  String get validatorCheckSurname => 'Entrez votre prénom';
+
+  @override
+  String get validatorCheckCountry => 'Entrez votre pays d\'origin';
+
+  @override
+  String get validatorCheckConfirmPassword => 'Les mots de passe ne correspondent pas';
 
   @override
   String get workshopPageTitle => 'Les prochains workshop';
@@ -108,7 +141,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get workshopPageAboutusSubtitle => 'En quoi consiste nos ateliers de danses?';
 
   @override
-  String get workshopPageCardTheme => 'Noel en Afro';
+  String get workshopPageCardTheme => 'Noel en Afro-Music';
 
   @override
   String get workshopPageCardDate => 'Samedi 13 Décembre 2025';
@@ -120,10 +153,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get workshopPageCardPlace => 'TU Kaiserslautern - Allemagne';
 
   @override
-  String get workshopPageCardDateline => 'Delai d\'inscription: 30.11.2025';
+  String get workshopPageCardDateline => 'Delai d\'inscription(Premium): 01.12.2025';
 
   @override
   String get workshopCardAgreementText => 'En participant à ce workshop, j’autorise Afrodance Corner à utiliser les photos et vidéos prises lors de l’événement à des fins de communication et de promotion sur nos affiches publicitaires, réseaux sociaux et site web.';
+
+  @override
+  String get workshopCardPaymentAgreementText => 'Tout forfait réglé ne pourra faire l’objet d’un remboursement.';
 
   @override
   String get workshopCardBasicCriteria1 => 'Accès au workshop';

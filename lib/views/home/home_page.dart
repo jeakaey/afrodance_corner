@@ -47,22 +47,18 @@ class HomePage extends StatelessWidget {
                           Text(
                             l10n.welcomePageTitle,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium
+                            style: Theme.of(context).textTheme.headlineMedium
                                 ?.copyWith(
                                   color: Colors.deepOrange,
                                   fontSize: 40 * scale,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
-                          SizedBox(height: 20 * scale),  
+                          SizedBox(height: 20 * scale),
                           Text(
                             l10n.welcomePageJoinusText,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
+                            style: Theme.of(context).textTheme.bodyLarge
                                 ?.copyWith(
                                   color: Colors.white,
                                   fontSize: 18 * scale,
@@ -83,7 +79,7 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                             l10n.welcomePageSubscribeButton,
+                              l10n.welcomePageSubscribeButton,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,

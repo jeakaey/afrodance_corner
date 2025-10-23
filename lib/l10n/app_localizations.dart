@@ -229,6 +229,12 @@ abstract class AppLocalizations {
   /// **'Message sent successfully'**
   String get contactPageSnackbarSucessMessage;
 
+  /// No description provided for @contactPageText.
+  ///
+  /// In en, this message translates to:
+  /// **'A question, a suggestion, or a desire to collaborate? We’d be delighted to hear from you!'**
+  String get contactPageText;
+
   /// No description provided for @labelTextPassword.
   ///
   /// In en, this message translates to:
@@ -252,6 +258,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Name'**
   String get labelTextName;
+
+  /// No description provided for @labelTextSurname.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get labelTextSurname;
+
+  /// No description provided for @labelTextCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Country of Origin'**
+  String get labelTextCountry;
+
+  /// No description provided for @labelTextGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get labelTextGender;
+
+  /// No description provided for @labelTextPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get labelTextPhone;
+
+  /// No description provided for @labelTextAdress.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get labelTextAdress;
+
+  /// No description provided for @labelTextDob.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get labelTextDob;
+
+  /// No description provided for @labelTextConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get labelTextConfirmPassword;
 
   /// No description provided for @validatorCheckEmail.
   ///
@@ -283,6 +331,24 @@ abstract class AppLocalizations {
   /// **'At least 6 characters'**
   String get validatorCheckPassword;
 
+  /// No description provided for @validatorCheckSurname.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your first name'**
+  String get validatorCheckSurname;
+
+  /// No description provided for @validatorCheckCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your country of origin'**
+  String get validatorCheckCountry;
+
+  /// No description provided for @validatorCheckConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get validatorCheckConfirmPassword;
+
   /// No description provided for @workshopPageTitle.
   ///
   /// In en, this message translates to:
@@ -298,7 +364,7 @@ abstract class AppLocalizations {
   /// No description provided for @workshopPageCardTheme.
   ///
   /// In en, this message translates to:
-  /// **'Christmas in Afro Style'**
+  /// **'Christmas with Afro Music'**
   String get workshopPageCardTheme;
 
   /// No description provided for @workshopPageCardDate.
@@ -322,7 +388,7 @@ abstract class AppLocalizations {
   /// No description provided for @workshopPageCardDateline.
   ///
   /// In en, this message translates to:
-  /// **'Registration deadline: November 30, 2025'**
+  /// **'Registration deadline(Premium): 01.12.2025'**
   String get workshopPageCardDateline;
 
   /// No description provided for @workshopCardAgreementText.
@@ -330,6 +396,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'By participating in this workshop, I authorize Afrodance Corner to use the photos and videos taken during the event for communication and promotional purposes on our posters, social media, and website.'**
   String get workshopCardAgreementText;
+
+  /// No description provided for @workshopCardPaymentAgreementText.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid subscriptions are non-refundable'**
+  String get workshopCardPaymentAgreementText;
 
   /// No description provided for @workshopCardBasicCriteria1.
   ///

@@ -19,7 +19,7 @@ class _ContactPageState extends State<ContactPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!; 
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
@@ -36,9 +36,7 @@ class _ContactPageState extends State<ContactPage> {
           ),
 
           // 🔳 Overlay sombre pour la lisibilité
-          Container(
-            color: Colors.black.withOpacity(0.4),
-          ),
+          Container(color: Colors.black.withOpacity(0.4)),
 
           // 🌈 Contenu principal
           SingleChildScrollView(
@@ -50,7 +48,8 @@ class _ContactPageState extends State<ContactPage> {
                     // 🏷️ Titre
                     Text(
                       l10n.contactPageSubtitle,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(
                             color: Colors.deepOrange,
                             fontSize: 38,
                             fontWeight: FontWeight.bold,
@@ -58,7 +57,7 @@ class _ContactPageState extends State<ContactPage> {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                     l10n.contactPageText,
+                      l10n.contactPageText,
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -87,7 +86,9 @@ class _ContactPageState extends State<ContactPage> {
                                 border: OutlineInputBorder(),
                               ),
                               validator: (value) =>
-                                  value == null || value.isEmpty ? l10n.validatorCheckName : null,
+                                  value == null || value.isEmpty
+                                  ? l10n.validatorCheckName
+                                  : null,
                               onSaved: (value) => name = value,
                             ),
                             const SizedBox(height: 20),
@@ -115,7 +116,8 @@ class _ContactPageState extends State<ContactPage> {
                                 prefixIcon: Icon(Icons.message),
                                 border: OutlineInputBorder(),
                               ),
-                              validator: (value) => value == null || value.isEmpty
+                              validator: (value) =>
+                                  value == null || value.isEmpty
                                   ? l10n.validatorCheckMessage
                                   : null,
                               onSaved: (value) => message = value,
@@ -126,9 +128,10 @@ class _ContactPageState extends State<ContactPage> {
                                 if (_formKey.currentState!.validate()) {
                                   _formKey.currentState!.save();
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                     SnackBar(
+                                    SnackBar(
                                       content: Text(
-                                         l10n.contactPageSnackbarSucessMessage),
+                                        l10n.contactPageSnackbarSucessMessage,
+                                      ),
                                     ),
                                   );
                                 }
@@ -136,7 +139,9 @@ class _ContactPageState extends State<ContactPage> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.deepOrange,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 20),
+                                  horizontal: 40,
+                                  vertical: 20,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -144,9 +149,10 @@ class _ContactPageState extends State<ContactPage> {
                               child: Text(
                                 l10n.contactPageSendButton,
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
@@ -164,7 +170,7 @@ class _ContactPageState extends State<ContactPage> {
                         color: Colors.white.withOpacity(0.9),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child:  Column(
+                      child: Column(
                         children: [
                           Text(
                             l10n.contactPageInfoSubtitle,
@@ -176,42 +182,46 @@ class _ContactPageState extends State<ContactPage> {
                           ),
                           SizedBox(height: 20),
                           ListTile(
-                            leading: Icon(Icons.location_on, color: Colors.deepOrange),
+                            leading: Icon(
+                              Icons.location_on,
+                              color: Colors.deepOrange,
+                            ),
                             title: Text(l10n.contactPageAdress),
                           ),
                           ListTile(
-                            leading: Icon(Icons.phone, color: Colors.deepOrange),
+                            leading: Icon(
+                              Icons.phone,
+                              color: Colors.deepOrange,
+                            ),
                             title: Text(l10n.contactPageTelefon),
                           ),
                           ListTile(
-                            leading: Icon(Icons.email, color: Colors.deepOrange),
+                            leading: Icon(
+                              Icons.email,
+                              color: Colors.deepOrange,
+                            ),
                             title: Text(l10n.contactPageEmail),
                           ),
                           ListTile(
-                            leading: Icon(Icons.tiktok, color: Colors.deepOrange),
+                            leading: Icon(
+                              Icons.tiktok,
+                              color: Colors.deepOrange,
+                            ),
                             title: Text(l10n.contactPageTiktok),
                           ),
-                          
                         ],
                       ),
                     ),
 
                     const SizedBox(height: 60),
-                   
                   ],
                 ),
               ),
             ),
           ),
-           const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Footer(),
-          ),
+          const Positioned(left: 0, right: 0, bottom: 0, child: Footer()),
         ],
       ),
     );
   }
 }
-

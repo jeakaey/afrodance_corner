@@ -36,7 +36,9 @@ class _LoginPageState extends State<LoginPage> {
 
           /// Scrollable content
           SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: 120), // ⬅️ leave space for footer
+            padding: const EdgeInsets.only(
+              bottom: 120,
+            ), // ⬅️ leave space for footer
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -79,12 +81,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
 
           ///  Fixed footer at bottom
-          const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Footer(),
-          ),
+          const Positioned(left: 0, right: 0, bottom: 0, child: Footer()),
         ],
       ),
     );

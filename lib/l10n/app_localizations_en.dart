@@ -75,6 +75,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contactPageSnackbarSucessMessage => 'Message sent successfully';
 
   @override
+  String get contactPageText => 'A question, a suggestion, or a desire to collaborate? We’d be delighted to hear from you!';
+
+  @override
   String get labelTextPassword => 'Password';
 
   @override
@@ -85,6 +88,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get labelTextName => 'Name';
+
+  @override
+  String get labelTextSurname => 'First Name';
+
+  @override
+  String get labelTextCountry => 'Country of Origin';
+
+  @override
+  String get labelTextGender => 'Gender';
+
+  @override
+  String get labelTextPhone => 'Phone';
+
+  @override
+  String get labelTextAdress => 'Address';
+
+  @override
+  String get labelTextDob => 'Date of Birth';
+
+  @override
+  String get labelTextConfirmPassword => 'Confirm Password';
 
   @override
   String get validatorCheckEmail => 'Enter your email';
@@ -102,13 +126,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get validatorCheckPassword => 'At least 6 characters';
 
   @override
+  String get validatorCheckSurname => 'Enter your first name';
+
+  @override
+  String get validatorCheckCountry => 'Enter your country of origin';
+
+  @override
+  String get validatorCheckConfirmPassword => 'Passwords do not match';
+
+  @override
   String get workshopPageTitle => 'Upcoming Workshops';
 
   @override
   String get workshopPageAboutusSubtitle => 'What are our dance workshops about?';
 
   @override
-  String get workshopPageCardTheme => 'Christmas in Afro Style';
+  String get workshopPageCardTheme => 'Christmas with Afro Music';
 
   @override
   String get workshopPageCardDate => 'Saturday, December 13, 2025';
@@ -120,10 +153,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get workshopPageCardPlace => 'TU Kaiserslautern - Germany';
 
   @override
-  String get workshopPageCardDateline => 'Registration deadline: November 30, 2025';
+  String get workshopPageCardDateline => 'Registration deadline(Premium): 01.12.2025';
 
   @override
   String get workshopCardAgreementText => 'By participating in this workshop, I authorize Afrodance Corner to use the photos and videos taken during the event for communication and promotional purposes on our posters, social media, and website.';
+
+  @override
+  String get workshopCardPaymentAgreementText => 'Paid subscriptions are non-refundable';
 
   @override
   String get workshopCardBasicCriteria1 => 'Workshop access';

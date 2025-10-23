@@ -6,14 +6,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:afrodance_corner/l10n/app_localizations.dart';
+
 Widget suscribeButton(
   Workshop myWorkshop,
   String cost,
   bool isChecked,
   BuildContext context,
-  
 ) {
-   final l10n = AppLocalizations.of(context)!;
+  final l10n = AppLocalizations.of(context)!;
   return ElevatedButton(
     onPressed: () async {
       if (isChecked) {
@@ -25,7 +25,9 @@ Widget suscribeButton(
       }
     },
     style: ElevatedButton.styleFrom(
-      backgroundColor: isChecked ? Colors.deepOrange : Colors.grey, // 🔸 grisé si non coché
+      backgroundColor: isChecked
+          ? Colors.deepOrange
+          : Colors.grey, // grisé si non coché
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
     ),
@@ -69,10 +71,12 @@ void _showConsentDialog(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        title: Text(l10n.suscribeButtonAlertDialogTitle,
+        title: Text(
+          l10n.suscribeButtonAlertDialogTitle,
           style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
         ),
-        content: Text(l10n.suscribeButtonAlertDialogText,
+        content: Text(
+          l10n.suscribeButtonAlertDialogText,
           style: TextStyle(fontSize: 14),
         ),
         actions: [

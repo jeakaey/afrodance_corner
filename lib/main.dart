@@ -1,24 +1,24 @@
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 //import 'package:l10n/l10n.dart';
 import 'package:intl/intl.dart';
-import 'firebase_options.dart'; 
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'router/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const AfrodanceCornerApp());
 }
 
 class AfrodanceCornerApp extends StatefulWidget {
   const AfrodanceCornerApp({super.key});
 
-   static void setLocale(BuildContext context, Locale locale) {
-    _AfrodanceCornerApp? state = context.findAncestorStateOfType<_AfrodanceCornerApp>();
+  static void setLocale(BuildContext context, Locale locale) {
+    _AfrodanceCornerApp? state = context
+        .findAncestorStateOfType<_AfrodanceCornerApp>();
     state?.changeLanguage(locale);
   }
 
@@ -27,8 +27,7 @@ class AfrodanceCornerApp extends StatefulWidget {
 }
 
 class _AfrodanceCornerApp extends State<AfrodanceCornerApp> {
-
-    Locale _locale = const Locale('de ');
+  Locale _locale = const Locale('de ');
 
   void changeLanguage(Locale locale) {
     setState(() {
@@ -39,26 +38,18 @@ class _AfrodanceCornerApp extends State<AfrodanceCornerApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-       locale: const Locale('de'), // langue par défaut
-      supportedLocales: const [
-        Locale('fr'),
-        Locale('en'),
-        Locale('de'),
-      ],
+      locale: _locale, // langue par défaut
+      supportedLocales: const [Locale('fr'), Locale('en'), Locale('de')],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-       // AppLocalizations.delegate, // on le crée juste après
+        AppLocalizations.delegate, // on le crée juste après
       ],
       title: 'Afrodance Corner',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.yellow,
-        fontFamily: 'Poppins',
-      ),
+      theme: ThemeData(primarySwatch: Colors.yellow, fontFamily: 'Poppins'),
       routerConfig: appRouter,
     );
   }
 }
- 
