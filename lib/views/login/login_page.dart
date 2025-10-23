@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            opacity: const AlwaysStoppedAnimation(0.9),
+           // opacity: const AlwaysStoppedAnimation(0.9),
           ),
 
           /// Scrollable content

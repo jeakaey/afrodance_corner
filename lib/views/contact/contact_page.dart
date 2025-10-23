@@ -36,7 +36,7 @@ class _ContactPageState extends State<ContactPage> {
           ),
 
           // 🔳 Overlay sombre pour la lisibilité
-          Container(color: Colors.black.withOpacity(0.4)),
+         // Container(color: Colors.black.withOpacity(0.4)),
 
           // 🌈 Contenu principal
           SingleChildScrollView(

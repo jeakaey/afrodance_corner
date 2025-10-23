@@ -24,7 +24,7 @@ class AboutPage extends StatelessWidget {
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            opacity: const AlwaysStoppedAnimation(0.9),
+           // opacity: const AlwaysStoppedAnimation(0.9),
           ),
 
           //  Overlay sombre pour la lisibilité

@@ -26,7 +26,7 @@ class WorkshopCardState extends State<WorkshopCard> {
     final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 6,
-      shadowColor: Colors.deepOrangeAccent.withOpacity(0.9),
+      shadowColor: Colors.deepOrangeAccent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         width: widget.width,
