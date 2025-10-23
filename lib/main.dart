@@ -39,7 +39,7 @@ class _AfrodanceCornerApp extends State<AfrodanceCornerApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-       locale: const Locale('fr'), // langue par défaut
+       locale: const Locale('de'), // langue par défaut
       supportedLocales: const [
         Locale('fr'),
         Locale('en'),

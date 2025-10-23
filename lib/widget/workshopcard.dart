@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:afrodance_corner/widget/suscribe_button.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class WorkshopCard extends StatefulWidget {
   final double width;
@@ -21,6 +23,7 @@ class WorkshopCardState extends State<WorkshopCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 6,
       shadowColor: Colors.deepOrangeAccent.withOpacity(0.9),
@@ -75,11 +78,8 @@ class WorkshopCardState extends State<WorkshopCard> {
               },
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.green,
-              title: const Text(
-                "En participant à ce workshop, j’autorise Afrodance Corner à utiliser "
-                "les photos et vidéos prises lors de l’événement à des fins de communication "
-                "et de promotion sur nos affiches publicitaires, réseaux sociaux et site web.",
-                style: TextStyle(fontSize: 13),
+              title: Text(l10n.workshopCardAgreementText,
+                style: const TextStyle(fontSize: 13),
               ),
             ),
 
@@ -91,9 +91,12 @@ class WorkshopCardState extends State<WorkshopCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _planCard("Basic", ["Accès au workshop", "Eau + friandises"], "5 EUR", "5.0", _acceptedMediaConsent, context),
-                _planCard("Standard", ["Basic", "Photos + vidéos"], "10 EUR", "10.0", _acceptedMediaConsent, context),
-                _planCard("Premium", ["Standard", "Cadeau spécial"], "15 EUR", "15.0", _acceptedMediaConsent, context),
+                // _planCard("Basic", ["Accès au workshop", "Eau + friandises"], "5 EUR", "5.0", _acceptedMediaConsent, context),
+                // _planCard("Standard", ["Basic", "Photos + vidéos"], "10 EUR", "10.0", _acceptedMediaConsent, context),
+                // _planCard("Premium", ["Standard", "Cadeau spécial"], "15 EUR", "15.0", _acceptedMediaConsent, context),
+                _planCard("Basic", [l10n.workshopCardBasicCriteria1, l10n.workshopCardBasicCriteria2], "5 EUR", "5.0", _acceptedMediaConsent, context),
+                _planCard("Standard", [l10n.workshopCardStandardCriteria1, l10n.workshopCardStandardCriteria2], "10 EUR", "10.0", _acceptedMediaConsent, context),
+                _planCard("Premium", [l10n.workshopCardPremiumCriteria1, l10n.workshopCardPremiumCriteria2], "15 EUR", "15.0", _acceptedMediaConsent, context),
               ],
             ),
           ],

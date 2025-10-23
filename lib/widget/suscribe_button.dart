@@ -1,15 +1,19 @@
+import 'dart:math';
+
 import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 Widget suscribeButton(
   Workshop myWorkshop,
   String cost,
   bool isChecked,
   BuildContext context,
+  
 ) {
+   final l10n = AppLocalizations.of(context)!;
   return ElevatedButton(
     onPressed: () async {
       if (isChecked) {
@@ -25,8 +29,8 @@ Widget suscribeButton(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
     ),
-    child: const Text(
-      "S'inscrire",
+    child: Text(
+      l10n.suscribeButtonTitle,
       style: TextStyle(
         color: Colors.white,
         fontSize: 12,
@@ -53,24 +57,22 @@ Future<void> _launchPaypal(String cost, Workshop myWorkshop) async {
   if (await canLaunchUrl(url)) {
     await launchUrl(url, mode: LaunchMode.externalApplication);
   } else {
-    throw 'Impossible d’ouvrir PayPal';
+    throw "Unable to open PayPal";
   }
 }
 
 ///  Fonction pour afficher une alerte
 void _showConsentDialog(BuildContext context) {
+  final l10n = AppLocalizations.of(context)!;
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        title: const Text(
-          "Consentement requis",
+        title: Text(l10n.suscribeButtonAlertDialogTitle,
           style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
         ),
-        content: const Text(
-          "Veuillez accepter les conditions de participation avant de continuer. "
-          "Cochez la case confirmant votre accord sur l'utilisation des photos et vidéos.",
+        content: Text(l10n.suscribeButtonAlertDialogText,
           style: TextStyle(fontSize: 14),
         ),
         actions: [

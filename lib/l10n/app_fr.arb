@@ -1,88 +1,84 @@
 {
   "@@locale": "fr",
   "welcomePageTitle": "Bienvenue sur Afrodance Corner",
-  "welcomePageJoinusText": "Viens rejoindre notre communauté passionnée de danse\n
-                               africaine et découvre les rythmes envoûtants, les mouvements vibrants,\n
-                               et l\'énergie contagieuse qui font de chaque session de 
-                               nos ateliers une expérience inoubliable.",
+  "welcomePageJoinusText": "Viens rejoindre notre communauté passionnée de danse africaine et découvre les rythmes envoûtants, les mouvements vibrants et l'énergie contagieuse qui font de chaque session de nos ateliers une expérience inoubliable.",
   "welcomePageSubscribeButton": "Inscris-toi à notre prochaine session" ,
  
   "aboutusPageTitle": "À propos",
-  "aboutusPageADCText": "Afrodance Corner est bien plus qu’un simple espace de danse — "
-                      "c’est une communauté vibrante qui célèbre les danses afro-urbaines, "
-                      "leur énergie, leur diversité et leur histoire. "
-                      "Nous créons des espaces où chacun peut s’exprimer en dansant, "
-                      "apprendre, se dépasser et surtout, partager sa passion pour la culture afro. "
-                      "\n\nNos workshops réunissent des danseurs de tous niveaux, Que tu sois débutant ou confirmé,"
-                      "icitu trouveras ton rythme ! "
-                      "\n\nL'encadrement des differents ateliers sont coordonnés par des coachs passionnés et des animateurs DJs très talentueux. "
-                      "Nous tenons a remercier nos partenaires qui nous accompagnent et nous soutiennent. Et bien sûr, un grand merci à notre incroyable"
-                      " communauté de danseurs et danseuses qui rendent chaque session inoubliable.",
+  "aboutusPageADCText": "Afrodance Corner est bien plus qu’un simple espace de danse, c’est une communauté vibrante qui célèbre les danses afro-urbaines, leur énergie, leur diversité et leur histoire. Nous créons des espaces où chacun peut s’exprimer en dansant, apprendre, se dépasser et surtout, partager sa passion pour la culture afro. Nos workshops réunissent des danseurs de tous niveaux, Que tu sois débutant ou confirmé, ici tu trouveras ton rythme !. L'encadrement des differents ateliers sont coordonnés par des coachs passionnés et des animateurs DJs très talentueux. Nous tenons a remercier nos partenaires qui nous accompagnent et nous soutiennent. Et bien sûr, un grand merci à notre incroyable communauté de danseurs et danseuses qui rendent chaque session inoubliable.",
   "aboutusPageSubtitle": "Nos Workshops",
-  "aboutusPageWorkshopText": "C’est avant tout une après-midi rythmée durant laquelle 
-                        les participants inscrits à nos ateliers apprennent de nouvelles 
-                        chorégraphies sur des sons principalement afro. Accompagnés par leur coach, 
-                        ils sont guidés pas à pas dans chaque mouvement avec passion et énergie.\n\n
-                        La séance se divise en trois temps forts : les échauffements, 
-                        une mini-chorégraphie tendance (souvent inspirée des danses virales TikTok), 
-                        et une chorégraphie principale preparée par leur coach. 
-                        Nous invitons tous les participants à venir motivés, à l’heure, 
-                        et prêts à se faire plaisir sur la piste de danse !\n\n
-                        Afrodance Corner, c’est aussi un lieu d’échanges, de rencontres et de partages 
-                        entre passionnés de danse, dans une ambiance conviviale et vibrante.",
+  "aboutusPageWorkshopText": "C’est avant tout une après-midi rythmée durant laquelle les participants inscrits à nos ateliers apprennent de nouvelles chorégraphies sur des sons principalement afro. Accompagnés par leur coach, ils sont guidés pas à pas dans chaque mouvement avec passion et énergie.\n\n La séance se divise en trois temps forts : les échauffements, une mini-chorégraphie tendance (souvent inspirée des danses virales TikTok), et une chorégraphie principale preparée par leur coach. Nous invitons tous les participants à venir motivés, à l’heure, et prêts à se faire plaisir sur la piste de danse ! Afrodance Corner, c’est aussi un lieu d’échanges, de rencontres et de partages entre passionnés de danse, dans une ambiance conviviale et vibrante.",
    "aboutusPageSuscribeButton": "S'inscrire à notre prochain workshop",
    "aboutusPageMissionTitle": "Notre Mission",
-   "aboutusPageMissionText": "Créer un espace d’expression artistique et culturelle
-                            où chaque passionné de danse trouve sa place.",
+   "aboutusPageMissionText": "Créer un espace d’expression artistique et culturelle où chaque passionné de danse trouve sa place.",
     "aboutusPageVisionTitle": "Notre vision",
-    "aboutusPageVisionText": "Créer un espace d’expression artistique et culturelle '
-                            'où chaque passionné de danse trouve sa place.",
+    "aboutusPageVisionText": "Créer un espace d’expression artistique et culturelle où chaque passionné de danse trouve sa place.",
     "aboutusPageValuesTitle": "Nos valeurs",
-    "aboutusPageValuesText": "Respect, inclusion, passion et authenticité — les piliers '
-                            'qui animent chaque session et chaque sourire.",
+    "aboutusPageValuesText": "Respect, inclusion, passion et authenticité — les piliers qui animent chaque session et chaque sourire.",
    
     "contactPageSubtitle": "Contactez-nous",
-    "contactPageInfoSubtitle: "Nos coordonnées",
+    "contactPageInfoSubtitle": "Nos coordonnées",
     "contactPageAdress": "Paul-Ehrlich-Str. 28, Kaiserslautern, Allemagne",
     "contactPageTelefon": "+49 15773617625",
     "contactPageEmail":"afrodancecorner@gmail.com",
     "contactPageTiktok":"Afrodance corner",
     "contactPageSendButton": "Envoyer",
     "contactPageSnackbarSucessMessage": "Message envoyé avec succès",
+    "contactPageText":"Une question, une suggestion ou une envie de collaborer ? Nous serions ravis d’échanger avec vous !",
    
-   "labelTextPassword": "Mot de passe",
-   
+    "labelTextPassword": "Mot de passe",
     "labelTextMessage": "Message",
     "labelTextEmail": "Email",
     "labelTextName": "Nom", 
-    "validatorCheckEmail": "Veuillez entrer votre Email",
+    "validatorCheckEmail": "Entrez votre Email",
     "validatorCheckInvalidEmail": "Email invalide",
-    "validatorCheckName": "Veuillez entrer votre nom",
-    "validatorCheckMessage": "Veuillez entrer un message",
+    "validatorCheckName": "Entrez votre nom",
+    "validatorCheckMessage": "Entrez un message",
     "validatorCheckPassword": "Au moins 6 caractères",
-    "workshopPageTitle": "Les prochains workshop"
-    "workshopPageAboutusSubtitle": "En quoi consiste nos ateliers de danses?"
-    "workshopPageCardTheme": "Noel en Afro"
-    "workshopPageCardDate":"Samedi 13 Décembre 2025"
-    "workshopPageCardTime" :"13h - 18h"
-    "workshoppageCardPlace":"TU Kaiserslautern - Allemagne"
-    "workshopPageCardDateline": "Delai d'inscription: 30.11.2025",
-    "footerCopyright": "© 2025 Afrodance Corner - Tous droits réservés, 
-    "headerMenuHome": "Accueil"
+   
+    "workshopPageTitle": "Les prochains workshop",
+    "workshopPageAboutusSubtitle": "En quoi consiste nos ateliers de danses?",
+    "workshopPageCardTheme": "Noel en Afro",
+    "workshopPageCardDate":"Samedi 13 Décembre 2025",
+    "workshopPageCardTime" :"13h - 18h",
+    "workshopPageCardPlace":"TU Kaiserslautern - Allemagne",
+    "workshopPageCardDateline": "Delai d'inscription(Standard & Premium): 01.12.2025",
+    "workshopCardAgreementText": "En participant à ce workshop, j’autorise Afrodance Corner à utiliser les photos et vidéos prises lors de l’événement à des fins de communication et de promotion sur nos affiches publicitaires, réseaux sociaux et site web.",
+    "workshopCardBasicCriteria1": "Accès au workshop",
+    "workshopCardBasicCriteria2": "Eau + friandises",
+    "workshopCardStandardCriteria1": "Basic",
+    "workshopCardStandardCriteria2": "Photos + vidéos",
+    "workshopCardPremiumCriteria1": "Standard",
+    "workshopCardPremiumCriteria2": "Cadeau spécial",
+
+    "footerCopyright": "© 2025 Afrodance Corner - Tous droits réservés", 
+   
+    "headerMenuHome": "Accueil",
+    "headerMenuLogin": "Login",
     "headerMenuWorkshop": "Workshop",
     "headerMenuAboutus": "A propos",
     "headerMenuContact": "Contact",
+    "headerLanguageFrench": "Francais",
+    "headerLanguageEnglish": "Anglais",
+    "headerLanguageGerman": "Allemand",
+    
     "loginFormSucessSnackbar": "Connexion réussie",
     "loginFormErrorSnackbar": "Erreur de connexion",
     "loginFormTitle": "Connexion",
-    "loginFormSubmitButton": "Se conecter",
+    "loginFormSubmitButton": "Se connecter",
+    
+    "loginPageCreateAccountTextButton": "Pas encore de compte ? Créer un compte",
+    "loginPageLoginTextButton": "Déjà un compte ? Se connecter",
+    
     "registerFormUserExistNotification": "Cet utilisateur existe déjà. Veuillez vous connecter.",
     "registerFormInvalidEmailNotification": "Adresse e-mail invalide.",
     "registerFormUnknownErrorNotification": "Une erreur est survenue :",
     "registerFormErrorNotification": "Erreur lors de la création du compte:",
     "registerFormCardTitle": "Créer un compte",
+    "registerFormSubmitButton": "S'enregistrer",
 
-    "register"         : "S'inscrire",
-    "login"            : "Se connecter",
-    "workshop_description": "Une après-midi de danse, d'énergie et de passion !"
+    "suscribeButtonTitle": "S'inscrire",
+    "suscribeButtonPaypalException": "Impossible d’ouvrir PayPal",
+    "suscribeButtonAlertDialogTitle": "Consentement requis",
+    "suscribeButtonAlertDialogText": "Veuillez accepter les conditions de participation avant de continuer. Cochez la case confirmant votre accord sur l'utilisation des photos et vidéos."   
 }

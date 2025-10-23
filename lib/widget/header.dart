@@ -1,3 +1,4 @@
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:afrodance_corner/main.dart';
@@ -6,6 +7,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
       color: Colors.white,
@@ -57,8 +59,8 @@ class Header extends StatelessWidget {
                       ),
                       ),
                       onPressed: () => context.go('/'),
-                      child: const Text(
-                        'Accueil', 
+                      child: Text(
+                        l10n.headerMenuHome, 
                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -74,8 +76,8 @@ class Header extends StatelessWidget {
                       ),
                       ),
                       onPressed: () => context.go('/workshop'),
-                      child: const Text(
-                        'Workshop',
+                      child: Text(
+                        l10n.headerMenuWorkshop,
                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -91,8 +93,8 @@ class Header extends StatelessWidget {
                       ),
                       ),
                       onPressed: () => context.go('/about_us'),
-                      child: const Text(
-                        'À Propos',
+                      child: Text(
+                         l10n.headerMenuAboutus,
                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -108,8 +110,8 @@ class Header extends StatelessWidget {
                         ),
                         ),
                       onPressed: () => context.go('/contact'),
-                      child: const Text(
-                        'Contact',
+                      child: Text(
+                         l10n.headerMenuContact,
                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -121,11 +123,11 @@ class Header extends StatelessWidget {
                 return PopupMenuButton(
                   icon: const Icon(Icons.menu, color: Colors.orange),
                   itemBuilder: (context) => [
-                    PopupMenuItem(child: ListTile(title: const Text('Login'), leading: const Icon(Icons.login, color: Colors.black), onTap: () => context.go('/login'))),
-                    PopupMenuItem(child: ListTile(title: const Text('Accueil'), leading: const Icon(Icons.home, color: Colors.black), onTap: () => context.go('/'))),
-                    PopupMenuItem(child: ListTile(title: const Text('Workshop'), leading: const Icon(Icons.class_sharp, color: Colors.black), onTap: () => context.go('/workshop'))),
-                    PopupMenuItem(child: ListTile(title: const Text('À Propos'), leading: const Icon(Icons.info, color: Colors.black), onTap: () => context.go('/about_us'))),
-                    PopupMenuItem(child: ListTile(title: const Text('Contact'), leading: const Icon(Icons.contact_mail, color: Colors.black), onTap: () => context.go('/contact'))),
+                    PopupMenuItem(child: ListTile(title:  Text( l10n.headerMenuLogin), leading: const Icon(Icons.login, color: Colors.black), onTap: () => context.go('/login'))),
+                    PopupMenuItem(child: ListTile(title:  Text( l10n.headerMenuHome), leading: const Icon(Icons.home, color: Colors.black), onTap: () => context.go('/'))),
+                    PopupMenuItem(child: ListTile(title:  Text( l10n.headerMenuWorkshop), leading: const Icon(Icons.class_sharp, color: Colors.black), onTap: () => context.go('/workshop'))),
+                    PopupMenuItem(child: ListTile(title:  Text( l10n.headerMenuAboutus), leading: const Icon(Icons.info, color: Colors.black), onTap: () => context.go('/about_us'))),
+                    PopupMenuItem(child: ListTile(title:  Text( l10n.headerMenuContact), leading: const Icon(Icons.contact_mail, color: Colors.black), onTap: () => context.go('/contact'))),
                   ],
                 );
               }
@@ -137,10 +139,10 @@ class Header extends StatelessWidget {
           onSelected: (Locale locale) {
           AfrodanceCornerApp.setLocale(context, locale);
   },
-          itemBuilder: (context) => const [
-            PopupMenuItem(value: Locale('fr'), child: Text("Français")),
-            PopupMenuItem(value: Locale('en'), child: Text("English")),
-            PopupMenuItem(value: Locale('de'), child: Text("Deutsch")),
+          itemBuilder: (context) => [
+            PopupMenuItem(value: Locale('fr'), child: Text(l10n.headerLanguageFrench)),
+            PopupMenuItem(value: Locale('en'), child: Text(l10n.headerLanguageEnglish)),
+            PopupMenuItem(value: Locale('de'), child: Text(l10n.headerLanguageGerman)),
           ],
 ),
 

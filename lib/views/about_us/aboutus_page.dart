@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../widget/header.dart';
 import '../../widget/footer.dart';
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
@@ -36,7 +38,7 @@ class AboutPage extends StatelessWidget {
                 children: [
                   //  Titre principal
                   Text(
-                    'À propos ',
+                    l10n.aboutusPageTitle,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           color: Colors.black,
                           fontSize: 50,
@@ -55,18 +57,8 @@ class AboutPage extends StatelessWidget {
                       color: Colors.white.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Text(
-                      "Afrodance Corner est bien plus qu’un simple espace de danse — "
-                      "c’est une communauté vibrante qui célèbre les danses afro-urbaines, "
-                      "leur énergie, leur diversité et leur histoire. "
-                      "Nous créons des espaces où chacun peut s’exprimer en dansant, "
-                      "apprendre, se dépasser et surtout, partager sa passion pour la culture afro. "
-                      "\n\nNos workshops réunissent des danseurs de tous niveaux, Que tu sois débutant ou confirmé,"
-                      "icitu trouveras ton rythme ! "
-                      "\n\nL'encadrement des differents ateliers sont coordonnés par des coachs passionnés et des animateurs DJs très talentueux. "
-                      "Nous tenons a remercier nos partenaires qui nous accompagnent et nous soutiennent. Et bien sûr, un grand merci à notre incroyable"
-                      " communauté de danseurs et danseuses qui rendent chaque session inoubliable.",
-                    
+                    child: Text(
+                     l10n.aboutusPageADCText,
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.black87,
@@ -88,7 +80,7 @@ class AboutPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                        children: [
                            Text(
-                               "Nos Workshops",
+                               l10n.aboutusPageSubtitle,
                                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 color: Colors.deepOrange,
                                 fontWeight: FontWeight.bold,

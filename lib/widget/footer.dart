@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(5),
@@ -40,7 +42,7 @@ class Footer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
               Text(
-                '© 2025 Afrodance Corner - Tous droits réservés',
+                l10n.footerCopyright,
                 style: TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold ),
               ),
       ])

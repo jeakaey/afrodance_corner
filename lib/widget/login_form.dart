@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
@@ -11,7 +11,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-
+  
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();  
 
@@ -26,19 +26,20 @@ class _LoginFormState extends State<LoginForm> {
         password: _passwordController.text.trim(),
       );
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Connexion réussie ✅')),
+        const SnackBar(content: Text('Login successful')),
       );
       // redirect to home
-     context.go( '/workshop');
+     context.go('/workshop');
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message ?? 'Erreur de connexion')),
+        SnackBar(content: Text(e.message ?? 'Login Error')),
       );
-    } 
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+      final l10n = AppLocalizations.of(context)!;
     return  LayoutBuilder(
          builder: (context, constraints) {
           final isLarge = constraints.maxWidth > 600;
@@ -71,7 +72,7 @@ class _LoginFormState extends State<LoginForm> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Connexion',
+                           l10n.loginFormTitle,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.deepOrange,
@@ -84,13 +85,13 @@ class _LoginFormState extends State<LoginForm> {
                           // Email
                           TextFormField(
                             controller: _emailController,
-                            decoration: const InputDecoration(
-                              labelText: 'Email',
+                            decoration: InputDecoration(
+                              labelText: l10n.labelTextEmail,
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.email),
                             ),
                             validator: (value) =>
-                                value!.isEmpty ? 'Entrez votre email' : null,
+                                value!.isEmpty ? l10n.validatorCheckEmail : null,
                           ),
                           const SizedBox(height: 20),
 
@@ -98,13 +99,13 @@ class _LoginFormState extends State<LoginForm> {
                           TextFormField(
                             controller: _passwordController,
                             obscureText: true,
-                            decoration: const InputDecoration(
-                              labelText: 'Mot de passe',
+                            decoration: InputDecoration(
+                              labelText: l10n.labelTextPassword,
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.lock),
                             ),
                             validator: (value) => value!.length < 6
-                                ? 'Au moins 6 caractères'
+                                ? l10n.validatorCheckPassword
                                 : null,
                           ),
                           const SizedBox(height: 20),
@@ -130,7 +131,7 @@ class _LoginFormState extends State<LoginForm> {
                               ),
                             ),
                             child: Text(
-                              'Se connecter',
+                              l10n.loginFormSubmitButton,
                               style: TextStyle(
                                 fontSize: 14 * scale,
                                 fontWeight: FontWeight.bold,

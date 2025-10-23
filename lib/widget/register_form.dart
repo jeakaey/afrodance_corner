@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -85,6 +85,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return  LayoutBuilder(
          builder: (context, constraints) {
           final isLarge = constraints.maxWidth > 600;
@@ -116,8 +117,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            'Créer un compte',
+                          Text( l10n.registerFormCardTitle,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.deepOrange,
@@ -129,13 +129,13 @@ class _RegisterFormState extends State<RegisterForm> {
                           // Surname  
                           TextFormField(
                             controller: _surnameController,
-                            decoration: const InputDecoration(
-                              labelText: 'Nom',
+                            decoration:  InputDecoration(
+                              labelText: l10n.labelTextName,
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.person),
                             ),
                             validator: (value) =>
-                                value!.isEmpty ? 'Entrez votre nom' : null,
+                                value!.isEmpty ? l10n.validatorCheckName : null,
                           ),
                           const SizedBox(height: 20),
                           // name
@@ -212,13 +212,13 @@ class _RegisterFormState extends State<RegisterForm> {
                           // Email
                           TextFormField(
                             controller: _emailController,
-                            decoration: const InputDecoration(
-                              labelText: 'Email',
+                            decoration: InputDecoration(
+                              labelText: l10n.labelTextEmail,
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.email),
                             ),
                             validator: (value) =>
-                                value!.isEmpty ? 'Entrez votre email' : null,
+                                value!.isEmpty ? l10n.validatorCheckEmail : null,
                           ),
                           if(_errormessage != null)
                           Padding(
@@ -233,13 +233,13 @@ class _RegisterFormState extends State<RegisterForm> {
                           TextFormField(
                             controller: _passwordController,
                             obscureText: true,
-                            decoration: const InputDecoration(
-                              labelText: 'Mot de passe',
+                            decoration: InputDecoration(
+                              labelText: l10n.labelTextPassword,
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.lock),
                             ),
                             validator: (value) => value!.length < 6
-                                ? 'Au moins 6 caractères'
+                                ? l10n.validatorCheckPassword
                                 : null,
                           ),
                           const SizedBox(height: 20),
@@ -277,7 +277,7 @@ class _RegisterFormState extends State<RegisterForm> {
                               ),
                             ),
                             child: Text(
-                              'S\'enregistrer',
+                              l10n.registerFormSubmitButton,
                               style: TextStyle(
                                 fontSize: 14 * scale,
                                 fontWeight: FontWeight.bold,

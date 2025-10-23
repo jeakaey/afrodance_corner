@@ -1,3 +1,4 @@
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:afrodance_corner/widget/footer.dart';
 import 'package:afrodance_corner/widget/header.dart';
@@ -11,6 +12,7 @@ class WorkshopsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
@@ -38,7 +40,7 @@ class WorkshopsPage extends StatelessWidget {
             const SizedBox(height: 20),
             // Titre principal
             Text(
-              'Les prochains workshops',
+              l10n.workshopPageTitle,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: Colors.deepOrange,
@@ -50,7 +52,7 @@ class WorkshopsPage extends StatelessWidget {
             const SizedBox(height: 20),
             TextButton(  
               onPressed: () => context.go('/about_us'),
-            child: Text(  'En quoi consiste nos ateliers de danses?',
+            child: Text( l10n.workshopPageAboutusSubtitle,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: Colors.white,
@@ -76,11 +78,11 @@ class WorkshopsPage extends StatelessWidget {
                     WorkshopCard(
                       width: cardWidth,
                       myWorkshop: Workshop(
-                     date: "Samedi 13 Décembre 2025",
-                      time: "13h - 18h",
-                      place: "TU Kaiserslautern - Allemagne",
-                      theme: "Noel en Afro",
-                      dateLine: "Delai d'inscription: 30.11.2025"
+                     date: l10n.workshopPageCardDate,
+                      time: l10n.workshopPageCardTime,
+                      place: l10n.workshopPageCardPlace,
+                      theme: l10n.workshopPageCardTheme,
+                      dateLine: l10n.workshopPageCardDateline
                       ),
                      ),
                      SizedBox(height: 20),
