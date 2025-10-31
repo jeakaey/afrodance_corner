@@ -46,17 +46,7 @@ Widget suscribeButton(
 Future<void> _launchPaypal(String cost, Workshop myWorkshop) async {
   final Uri url = Uri.parse("https://paypal.me/Afrodancecorner/$cost");
 
-  //save payment trigger in Firestore
-  await FirebaseFirestore.instance.collection('payments_triggered').add({
-    'userEmail': FirebaseAuth.instance.currentUser?.email,
-    'amount': cost,
-    'workshop': myWorkshop.theme,
-    'paidAt': FieldValue.serverTimestamp(),
-    'status': 'redirected_to_paypal',
-  });
-
-  // Ouvrir PayPal
-  if (await canLaunchUrl(url)) {
+   if (await canLaunchUrl(url)) {
     if (kIsWeb) {
     html.window.open(url.toString(), '_blank');
   } else {
@@ -65,6 +55,15 @@ Future<void> _launchPaypal(String cost, Workshop myWorkshop) async {
   } else {
     throw "Unable to open PayPal";
   }
+  //save payment trigger in Firestore
+  await FirebaseFirestore.instance.collection('payments_triggered').add({
+    'userEmail': FirebaseAuth.instance.currentUser?.email,
+    'amount': cost,
+    'workshop': myWorkshop.theme,
+    'paidAt': FieldValue.serverTimestamp(),
+    'status': 'redirected_to_paypal',
+  });
+ 
 }
 
 ///  Fonction pour afficher une alerte
