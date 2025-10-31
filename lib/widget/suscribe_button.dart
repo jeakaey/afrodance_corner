@@ -44,11 +44,11 @@ Widget suscribeButton(
 }
 
 Future<void> _launchPaypal(String cost, Workshop myWorkshop) async {
-  final Uri url = Uri.parse("https://paypal.me/Afrodancecorner/$cost");
+  final Uri url = Uri.parse( "https://afrodancecorner.web.app/payredirect.html?amount=$cost");
 
    if (await canLaunchUrl(url)) {
-    if (kIsWeb) {
-    html.window.open(url.toString(), '_blank');
+     if (kIsWeb) {
+    html.window.open(url.toString(), '_self');
   } else {
     await launchUrl(url, mode: LaunchMode.externalApplication);
   }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting to PayPal...</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #fff3e6;
+      color: #333;
+      text-align: center;
+    }
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #ff7a00;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader"></div>
+  <h2>Redirecting to PayPal...</h2>
+  <p>Please wait!</p>
+
+  <script>
+    // Récupère le paramètre "amount" depuis l'URL
+    const params = new URLSearchParams(window.location.search);
+    const amount = params.get('amount') || '';
+
+    // URL PayPal personnalisée
+    const paypalUrl = `https://paypal.me/Afrodancecorner/${amount}`;
+
+    // Redirection automatique après un court délai
+    setTimeout(() => {
+      window.location.href = paypalUrl;
+    }, 1500);
+  </script>
+</body>
+</html>
