@@ -1,5 +1,6 @@
 import 'dart:math';
-
+import 'dart:html' as html ;
+import 'package:flutter/foundation.dart' show kIsWeb ;
 import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,17 +18,17 @@ Widget suscribeButton(
   return ElevatedButton(
     onPressed: () async {
       if (isChecked) {
-        // Si la case est cochée → paiement via PayPal
+        // if checkbox marked redirect to PayPal
         await _launchPaypal(cost, myWorkshop);
       } else {
-        // Si non cochée → afficher une alerte
+        // if not marked show alert dialog
         _showConsentDialog(context);
       }
     },
     style: ElevatedButton.styleFrom(
       backgroundColor: isChecked
           ? Colors.deepOrange
-          : Colors.grey, // grisé si non coché
+          : Colors.grey, // Button color based on checkbox
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
     ),
@@ -45,7 +46,7 @@ Widget suscribeButton(
 Future<void> _launchPaypal(String cost, Workshop myWorkshop) async {
   final Uri url = Uri.parse("https://paypal.me/Afrodancecorner/$cost");
 
-  // Enregistrer l’intention de paiement dans Firestore
+  //save payment trigger in Firestore
   await FirebaseFirestore.instance.collection('payments_triggered').add({
     'userEmail': FirebaseAuth.instance.currentUser?.email,
     'amount': cost,
@@ -56,7 +57,11 @@ Future<void> _launchPaypal(String cost, Workshop myWorkshop) async {
 
   // Ouvrir PayPal
   if (await canLaunchUrl(url)) {
+    if (kIsWeb) {
+    html.window.open(url.toString(), '_blank');
+  } else {
     await launchUrl(url, mode: LaunchMode.externalApplication);
+  }
   } else {
     throw "Unable to open PayPal";
   }

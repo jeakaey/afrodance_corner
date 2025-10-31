@@ -1,8 +1,6 @@
 import 'package:afrodance_corner/l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-//import 'package:l10n/l10n.dart';
-import 'package:intl/intl.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'router/app_router.dart';
