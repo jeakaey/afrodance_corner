@@ -1,3 +1,4 @@
+import 'package:afrodance_corner/l10n/app_localizations.dart';
 import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,7 +19,7 @@ Widget suscribeButton(
   return ElevatedButton(
     onPressed: () {
       if (isChecked) {
-        _openPaypalImmediately(cost, myWorkshop);
+        _openPaypalImmediately(cost, myWorkshop, context);
       } else {
         _showConsentDialog(context);
       }
@@ -39,18 +40,30 @@ Widget suscribeButton(
   );
 }
 
-///  Ouvre PayPal immédiatement (synchrone) pour éviter le blocage sur iOS Safari
-void _openPaypalImmediately(String cost, Workshop myWorkshop) async {
-final paypalUrl = "https://paypal.me/Afrodancecorner/$cost";
 
-if (kIsWeb) {
-  // Utilise la fonction JS définie dans index.html
-  // ignore: undefined_prefixed_name
-  await js.context.callMethod('openPayPal', [paypalUrl.toString()]);
+void _openPaypalImmediately(String cost, Workshop myWorkshop, BuildContext context) async {
+final paypalUrl = Uri.parse("https://paypal.me/Afrodancecorner/$cost");
+
+if (await canLaunchUrl(paypalUrl)) {
+  await launchUrl(paypalUrl, mode: LaunchMode.externalApplication);
 } else {
-  final uri = Uri.parse(paypalUrl);
-  await launchUrl(uri, mode: LaunchMode.externalApplication);
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text("Error"),
+      content: Text(
+        AppLocalizations.of(context)!.suscribeButtonSecondAlertDialogText!,
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text("OK"),
+        ),
+      ],
+    ),
+  );
 }
+
 
 
   //  Sauvegarde Firestore en arrière-plan (non bloquant)

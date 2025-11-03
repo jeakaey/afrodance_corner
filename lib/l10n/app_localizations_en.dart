@@ -253,4 +253,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get suscribeButtonAlertDialogText => 'Please accept the participation terms before proceeding. Check the box confirming your consent to the use of photos and videos.';
+
+  @override
+  String get suscribeButtonSecondAlertDialogText => 'If the PayPal page doesn’t open, please make sure that pop-ups are allowed in your browser (Settings > Safari > Block Pop-ups).';
 }

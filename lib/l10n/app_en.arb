@@ -92,7 +92,8 @@
   "suscribeButtonTitle": "Subscribe",
   "suscribeButtonPaypalException": "Unable to open PayPal",
   "suscribeButtonAlertDialogTitle": "Consent Required",
-  "suscribeButtonAlertDialogText": "Please accept the participation terms before proceeding. Check the box confirming your consent to the use of photos and videos."
+  "suscribeButtonAlertDialogText": "Please accept the participation terms before proceeding. Check the box confirming your consent to the use of photos and videos.",
+  "suscribeButtonSecondAlertDialogText": "If the PayPal page doesn’t open, please make sure that pop-ups are allowed in your browser (Settings > Safari > Block Pop-ups)." 
 }
 
 

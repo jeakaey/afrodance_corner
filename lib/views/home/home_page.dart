@@ -90,16 +90,6 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20 * scale),
-                          ElevatedButton(
-                          onPressed: () {
-                            // test Safari
-                            final paypalUrl = "https://paypal.me/Afrodancecorner/10";
-                            html.window.open(paypalUrl, "_blank");
-                          },
-                          child: Text("Test PayPal Link"),
-                        )
-
                         ],
                       ),
                     ),

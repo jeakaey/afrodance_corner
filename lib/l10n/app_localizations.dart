@@ -588,6 +588,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please accept the participation terms before proceeding. Check the box confirming your consent to the use of photos and videos.'**
   String get suscribeButtonAlertDialogText;
+
+  /// No description provided for @suscribeButtonSecondAlertDialogText.
+  ///
+  /// In en, this message translates to:
+  /// **'If the PayPal page doesn’t open, please make sure that pop-ups are allowed in your browser (Settings > Safari > Block Pop-ups).'**
+  String get suscribeButtonSecondAlertDialogText;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
