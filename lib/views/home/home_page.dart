@@ -1,3 +1,5 @@
+import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../widget/header.dart';
@@ -88,6 +90,16 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(height: 20 * scale),
+                          ElevatedButton(
+                          onPressed: () {
+                            // test Safari
+                            final paypalUrl = "https://paypal.me/Afrodancecorner/10";
+                            html.window.open(paypalUrl, "_blank");
+                          },
+                          child: Text("Test PayPal Link"),
+                        )
+
                         ],
                       ),
                     ),
