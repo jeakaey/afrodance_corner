@@ -53,6 +53,16 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   getAnalytics(app);
+
+   window.openPayPal = function (url) {
+    try {
+      // Safari bloque souvent les nouvelles fenêtres
+      // on force une ouverture dans la même fenêtre (_self)
+      window.location.href = url;
+    } catch (e) {
+      console.error("Erreur lors de l'ouverture de PayPal:", e);
+    }
+  };
 </script>
 
   <script src="flutter_bootstrap.js" async></script>

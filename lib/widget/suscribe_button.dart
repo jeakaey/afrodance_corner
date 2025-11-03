@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:html' as html; // ✅ Nécessaire pour ouvrir les liens web sur iOS Safari
+import 'dart:js' as js; // 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:afrodance_corner/l10n/app_localizations.dart';
 
@@ -39,18 +39,21 @@ Widget suscribeButton(
   );
 }
 
-/// ✅ Ouvre PayPal immédiatement (synchrone) pour éviter le blocage sur iOS Safari
-void _openPaypalImmediately(String cost, Workshop myWorkshop) {
-  final paypalUrl = "https://paypal.me/Afrodancecorner/$cost";
+///  Ouvre PayPal immédiatement (synchrone) pour éviter le blocage sur iOS Safari
+void _openPaypalImmediately(String cost, Workshop myWorkshop) async {
+final paypalUrl = "https://paypal.me/Afrodancecorner/$cost";
 
-  // 🔥 Ouvre PayPal directement (sans async/await)
-  if (kIsWeb) {
-    html.window.open(paypalUrl, "_blank");
-  } else {
-    launchUrl(Uri.parse(paypalUrl), mode: LaunchMode.externalApplication);
-  }
+if (kIsWeb) {
+  // Utilise la fonction JS définie dans index.html
+  // ignore: undefined_prefixed_name
+  await js.context.callMethod('openPayPal', [paypalUrl.toString()]);
+} else {
+  final uri = Uri.parse(paypalUrl);
+  await launchUrl(uri, mode: LaunchMode.externalApplication);
+}
 
-  // 💾 Sauvegarde Firestore en arrière-plan (non bloquant)
+
+  //  Sauvegarde Firestore en arrière-plan (non bloquant)
   FirebaseFirestore.instance.collection('payments_triggered').add({
     'userEmail': FirebaseAuth.instance.currentUser?.email,
     'amount': cost,
