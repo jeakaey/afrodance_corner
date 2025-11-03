@@ -1,14 +1,12 @@
-import 'dart:html' as html;
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'dart:html' as html; // ✅ Nécessaire pour ouvrir les liens web sur iOS Safari
 import 'package:url_launcher/url_launcher.dart';
-import 'package:afrodance_corner/views/workshop/workshop.dart';
 import 'package:afrodance_corner/l10n/app_localizations.dart';
 
-
-/// Bouton d'inscription à un workshop
 Widget suscribeButton(
   Workshop myWorkshop,
   String cost,
@@ -18,12 +16,10 @@ Widget suscribeButton(
   final l10n = AppLocalizations.of(context)!;
 
   return ElevatedButton(
-    onPressed: () async {
+    onPressed: () {
       if (isChecked) {
-        // ✅ Checkbox cochée : rediriger vers PayPal
-        await _launchPaypal(cost, myWorkshop);
+        _openPaypalImmediately(cost, myWorkshop);
       } else {
-        // 🚫 Sinon, afficher un message d’avertissement
         _showConsentDialog(context);
       }
     },
@@ -43,37 +39,28 @@ Widget suscribeButton(
   );
 }
 
-/// ✅ Fonction de redirection PayPal (compatible iOS, Android et Web)
-Future<void> _launchPaypal(String cost, Workshop myWorkshop) async {
-  final Uri url = Uri.parse("https://paypal.me/Afrodancecorner/$cost");
+/// ✅ Ouvre PayPal immédiatement (synchrone) pour éviter le blocage sur iOS Safari
+void _openPaypalImmediately(String cost, Workshop myWorkshop) {
+  final paypalUrl = "https://paypal.me/Afrodancecorner/$cost";
 
-  // 🔹 Enregistrer le déclenchement du paiement
-  await FirebaseFirestore.instance.collection('payments_triggered').add({
+  // 🔥 Ouvre PayPal directement (sans async/await)
+  if (kIsWeb) {
+    html.window.open(paypalUrl, "_blank");
+  } else {
+    launchUrl(Uri.parse(paypalUrl), mode: LaunchMode.externalApplication);
+  }
+
+  // 💾 Sauvegarde Firestore en arrière-plan (non bloquant)
+  FirebaseFirestore.instance.collection('payments_triggered').add({
     'userEmail': FirebaseAuth.instance.currentUser?.email,
     'amount': cost,
     'workshop': myWorkshop.theme,
     'paidAt': FieldValue.serverTimestamp(),
     'status': 'redirected_to_paypal',
   });
-
-  // 🔹 Redirection PayPal
-  if (kIsWeb) {
-    // ✅ Méthode 100 % compatible Safari & iOS
-    final anchor = html.AnchorElement(href: url.toString())
-      ..target = '_blank'
-      ..rel = 'noopener noreferrer';
-    anchor.click();
-  } else {
-    // ✅ Autres plateformes (Android, Desktop, etc.)
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Could not launch PayPal';
-    }
-  }
 }
 
-/// ⚠️ Affiche une boîte de dialogue si l’utilisateur n’a pas accepté la clause photo/vidéo
+/// 🔔 Affiche un message d’alerte si le consentement n’est pas coché
 void _showConsentDialog(BuildContext context) {
   final l10n = AppLocalizations.of(context)!;
 
@@ -84,10 +71,7 @@ void _showConsentDialog(BuildContext context) {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         title: Text(
           l10n.suscribeButtonAlertDialogTitle,
-          style: const TextStyle(
-            color: Colors.red,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
         ),
         content: Text(
           l10n.suscribeButtonAlertDialogText,
@@ -96,10 +80,7 @@ void _showConsentDialog(BuildContext context) {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text(
-              "OK",
-              style: TextStyle(color: Colors.black),
-            ),
+            child: const Text("OK", style: TextStyle(color: Colors.black)),
           ),
         ],
       );
